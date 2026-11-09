@@ -736,20 +736,13 @@ input[type=date]::-webkit-calendar-picker-indicator { filter: invert(.85); }
   .dept-card .pic { aspect-ratio: 16/8; }
 }
 
-/* about: grid pengurus */
-.people-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+/* about: pengurus inti — semua kartu sama besar; ketua & wakil di baris atas */
+.people-grid { --gap: 14px; --cols: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap); }
+.people-grid > .person { flex: 0 0 calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); }
 .people-grid .person .info b { font-size: 1.05rem; }
-.people-grid .person.lead { grid-column: 1 / -1; }
-@media (max-width: 959px) { .people-grid .person.lead .pic { aspect-ratio: 16/10; } .people-grid .person.lead .ph svg.sil { width: 40%; } }
-@media (min-width: 640px) { .people-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-@media (min-width: 960px) {
-  .people-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-  .people-grid .person.lead { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
-  .people-grid .person.lead .pic { aspect-ratio: auto; }
-  .people-grid .person.lead .pic { aspect-ratio: auto; flex: 1; }
-  .people-grid .person.lead .info b { font-size: 1.6rem; }
-  .people-grid .person.lead .ph svg.sil { width: 56%; }
-}
+.people-top { margin-bottom: var(--gap); }
+@media (min-width: 640px) { .people-grid { --cols: 3; } }
+@media (min-width: 960px) { .people-grid { --cols: 4; --gap: 18px; } }
 .nav a, .nav .dd > button { white-space: nowrap; }
 @media (max-width: 1180px) and (min-width: 960px) {
   .brand small { display: none; }

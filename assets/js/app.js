@@ -351,9 +351,13 @@
             <div><span class="eyebrow">Pengurus inti</span><h2 style="margin-top:14px">Wajah di balik <em>${esc(O.kabinet || "kabinet")}</em>${contoh()}</h2></div>
             <p>Pengurus harian yang memimpin dan mengoordinasikan seluruh departemen.</p>
           </div>
-          <div class="people-grid">
-            ${(O.pengurusInti || []).map((p, i) => `<article class="person reveal ${i === 0 ? "lead" : ""}"><div class="pic">${ph("Foto pengurus", "person", i + 1, p.foto)}</div><div class="info"><b>${esc(p.nama)}</b><small>${esc(p.jabatan)}</small>${liBtn(p.linkedin, p.nama)}</div></article>`).join("")}
-          </div>
+          ${(() => {
+            const all = O.pengurusInti || [];
+            const card = (p, i) => `<article class="person reveal"><div class="pic">${ph("Foto pengurus", "person", i + 1, p.foto)}</div><div class="info"><b>${esc(p.nama)}</b><small>${esc(p.jabatan)}</small>${liBtn(p.linkedin, p.nama)}</div></article>`;
+            const top = all.filter((p) => p.id === "ketum" || p.id === "waketum");
+            const rest = all.filter((p) => p.id !== "ketum" && p.id !== "waketum");
+            return `<div class="people-grid people-top">${top.map(card).join("")}</div><div class="people-grid">${rest.map((p, i) => card(p, i + 2)).join("")}</div>`;
+          })()}
         </div>
       </section>
 

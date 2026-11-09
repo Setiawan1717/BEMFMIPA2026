@@ -24,6 +24,15 @@ fmipa-connect/
 └── supabase/schema.sql   ← tabel, keamanan (RLS), dan fungsi database
 ```
 
+## Kalau tampilannya polos / berantakan
+
+Itu tandanya `index.html` dibuka sendirian tanpa folder `assets/`, misalnya langsung diklik dari dalam zip atau hanya file itu yang diunggah ke hosting.
+Ada dua cara:
+
+1. **Ekstrak zip dulu** (klik kanan → *Extract All*), lalu buka `index.html` dari folder hasil ekstrak. Saat hosting, unggah seluruh isi folder.
+2. Pakai versi **satu file** di folder `dist/` (`index.html` dan `admin.html`). CSS, JavaScript, dan logo sudah ada di dalam file, jadi bisa dibuka dari mana saja.
+   Kalau kamu mengubah kode, buat ulang versi ini dengan `python tools/build-satu-file.py`.
+
 ## Mode demo vs mode asli
 
 Selama `SUPABASE_URL` di `assets/js/config.js` masih kosong, website berjalan dalam **mode demo**:
