@@ -33,6 +33,12 @@ Ada dua cara:
 2. Pakai versi **satu file** di folder `dist/` (`index.html` dan `admin.html`). CSS, JavaScript, dan logo sudah ada di dalam file, jadi bisa dibuka dari mana saja.
    Kalau kamu mengubah kode, buat ulang versi ini dengan `python tools/build-satu-file.py`.
 
+## Setelah mengubah kode
+
+Di `index.html` dan `admin.html`, setiap file CSS/JS dipanggil dengan `?v=...` (misalnya `style.css?v=20261109b`).
+Ganti angka itu setiap kali file CSS/JS diubah supaya browser pengunjung langsung memuat versi baru, bukan versi lama yang tersimpan (GitHub Pages menyimpan cache sekitar 10 menit).
+Perubahan lewat Panel Admin → Edit situs tidak perlu langkah ini.
+
 ## Mode demo vs mode asli
 
 Selama `SUPABASE_URL` di `assets/js/config.js` masih kosong, website berjalan dalam **mode demo**:

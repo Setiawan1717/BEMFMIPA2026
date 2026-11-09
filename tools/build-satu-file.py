@@ -19,12 +19,12 @@ def swap_imgs(t):
 
 for page in ("index.html", "admin.html"):
     html = read(page)
-    html = re.sub(r'<link rel="stylesheet" href="(assets/css/[^"]+)">', lambda m: "<style>\n" + read(m.group(1)) + "\n</style>", html)
+    html = re.sub(r'<link rel="stylesheet" href="(assets/css/[^"?]+)(?:\?[^"]*)?">', lambda m: "<style>\n" + read(m.group(1)) + "\n</style>", html)
     def js(m):
         code = read(m.group(1))
         if "</script" in code.lower(): sys.exit("Ada </script di " + m.group(1))
         return "<script>\n" + code + "\n</script>"
-    html = re.sub(r'<script src="(assets/js/[^"]+)"></script>', js, html)
+    html = re.sub(r'<script src="(assets/js/[^"?]+)(?:\?[^"]*)?"></script>', js, html)
     html = swap_imgs(html)
     open(os.path.join(OUT, page), "w", encoding="utf-8").write(html)
     print(page, round(len(html) / 1024), "KB")
