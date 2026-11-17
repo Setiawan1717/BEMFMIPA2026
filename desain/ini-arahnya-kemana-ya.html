@@ -1,0 +1,87 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Poppins:wght@500;600;700&display=block" rel="stylesheet">
+<style>
+:root{--cream:#f4efa2;--cream2:#fbf8d6;--g1:#2e5a1c;--g2:#1c3a12;--g3:#11250b;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1080px;height:1920px;overflow:hidden;background:var(--g2);font-family:Poppins,sans-serif}
+.stage{position:relative;width:1080px;height:1920px;
+ background:radial-gradient(ellipse 80% 60% at 50% 45%,#3a6b24 0%,var(--g1) 35%,var(--g2) 70%,var(--g3) 100%);}
+svg.bg{position:absolute;inset:0}
+.title{position:absolute;left:0;right:0;top:760px;text-align:center;font-family:'Kaushan Script',cursive;
+ color:var(--cream);font-size:150px;line-height:1.05;transform:rotate(-3deg);
+ text-shadow:0 6px 0 rgba(0,0,0,.25),0 14px 40px rgba(0,0,0,.35)}
+.tag{position:absolute;top:150px;left:50%;transform:translateX(-50%);border:3px solid var(--cream);color:var(--cream);
+ padding:14px 36px;border-radius:999px;font-weight:600;font-size:30px;letter-spacing:6px}
+.sub{position:absolute;top:1130px;left:0;right:0;text-align:center;color:var(--cream2);font-size:38px;font-weight:500;opacity:.92;line-height:1.45}
+.sub b{color:var(--cream);font-weight:700}
+.cta{position:absolute;bottom:170px;left:50%;transform:translateX(-50%);background:var(--cream);color:var(--g2);
+ padding:22px 48px;border-radius:999px;font-weight:700;font-size:32px;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+</style></head><body><div class="stage">
+<svg class="bg" viewBox="0 0 1080 1920">
+ <defs>
+  <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="2" fill="#f4efa2" opacity=".07"/></pattern>
+ </defs>
+ <rect width="1080" height="1920" fill="url(#dots)"/>
+ <!-- kontur peta -->
+ <g fill="none" stroke="#f4efa2" stroke-width="2" opacity=".08">
+  <path d="M-50 380 C200 300 380 470 620 400 S960 260 1140 360"/>
+  <path d="M-50 430 C210 350 390 520 630 450 S970 310 1140 410"/>
+  <path d="M-50 1500 C180 1430 360 1600 600 1540 S940 1400 1140 1480"/>
+  <path d="M-50 1555 C190 1485 370 1655 610 1595 S950 1455 1140 1535"/>
+  <path d="M-50 1610 C200 1540 380 1710 620 1650 S960 1510 1140 1590"/>
+ </g>
+ <g transform="translate(0 190)"><!-- jalur -->
+ <path d="M140 1920 C160 1700 420 1720 400 1560 S120 1400 260 1300" fill="none" stroke="#f4efa2" stroke-width="7" stroke-dasharray="4 22" stroke-linecap="round" opacity=".55"/>
+ <path d="M960 1920 C930 1760 700 1770 740 1600 S980 1440 850 1320" fill="none" stroke="#f4efa2" stroke-width="7" stroke-dasharray="4 22" stroke-linecap="round" opacity=".55"/>
+ <!-- pin lokasi -->
+ <g transform="translate(260 1270)"><path d="M0 0 C-34 -40 -40 -60 -40 -78 a40 40 0 0 1 80 0 c0 18 -6 38 -40 78z" fill="#f4efa2"/><circle cy="-78" r="15" fill="#1c3a12"/></g>
+ <g transform="translate(850 1290)"><path d="M0 0 C-34 -40 -40 -60 -40 -78 a40 40 0 0 1 80 0 c0 18 -6 38 -40 78z" fill="#f4efa2" opacity=".85"/><text y="-64" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="40" fill="#1c3a12">?</text></g>
+
+ </g><!-- kompas -->
+ <g transform="translate(540 480)">
+  <circle r="185" fill="#173210" opacity=".55"/>
+  <circle r="170" fill="none" stroke="#f4efa2" stroke-width="6"/>
+  <circle r="146" fill="none" stroke="#f4efa2" stroke-width="2" opacity=".5" stroke-dasharray="3 9"/>
+  <g stroke="#f4efa2" stroke-width="4" stroke-linecap="round">
+   <line y1="-170" y2="-150"/><line y1="170" y2="150"/><line x1="-170" x2="-150"/><line x1="170" x2="150"/>
+  </g>
+  <g font-family="Poppins" font-weight="700" font-size="34" fill="#f4efa2" text-anchor="middle">
+   <text y="-108">U</text><text y="132">S</text><text x="-118" y="12">B</text><text x="118" y="12">T</text>
+  </g>
+  <!-- jarum bingung -->
+  <g transform="rotate(38)">
+   <path d="M0 -105 L18 0 L0 12 L-18 0z" fill="#f4efa2"/>
+   <path d="M0 105 L18 0 L0 -12 L-18 0z" fill="#f4efa2" opacity=".35"/>
+  </g>
+  <g transform="rotate(-24)" opacity=".25"><path d="M0 -100 L12 0 L-12 0z" fill="#f4efa2"/></g>
+  <circle r="12" fill="#1c3a12" stroke="#f4efa2" stroke-width="5"/>
+  <!-- garis gerak -->
+  <g fill="none" stroke="#f4efa2" stroke-width="5" stroke-linecap="round" opacity=".7">
+   <path d="M205 -90 q20 25 0 50"/><path d="M228 -110 q30 40 0 90"/>
+   <path d="M-205 90 q-20 -25 0 -50"/><path d="M-228 110 q-30 -40 0 -90"/>
+  </g>
+ </g>
+ <!-- tanda tanya melayang -->
+ <g font-family="Kaushan Script" fill="#f4efa2">
+  <text x="115" y="600" font-size="120" opacity=".5" transform="rotate(-14 115 600)">?</text>
+  <text x="900" y="420" font-size="90" opacity=".4" transform="rotate(16 900 420)">?</text>
+  <text x="930" y="1290" font-size="70" opacity=".3" transform="rotate(10 930 1290)">?</text>
+  <text x="70" y="820" font-size="60" opacity=".3">?</text>
+ </g>
+ <!-- panah arah ke berbagai sisi -->
+ <g fill="none" stroke="#f4efa2" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity=".6">
+  <path d="M230 260 l-70 -40 m0 0 l14 30 m-14 -30 l32 -6"/>
+  <path d="M850 640 l80 30 m0 0 l-30 12 m30 -12 l-20 -24"/>
+ </g>
+ <!-- kilau -->
+ <g fill="#f4efa2">
+  <path d="M800 230 l8 22 22 8 -22 8 -8 22 -8 -22 -22 -8 22 -8z" opacity=".8"/>
+  <path d="M150 1250 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z" opacity=".6"/>
+  <path d="M960 1180 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z" opacity=".6"/>
+ </g>
+</svg>
+<div class="tag">BEM FMIPA 2026</div>
+<div class="title">Ini Arahnya<br>Kemana, Ya?</div>
+<div class="sub">Banyak jalan, banyak pilihan.<br><b>Yuk, cari tahu bareng!</b></div>
+<div class="cta">Geser untuk lihat jawabannya &nbsp;→</div>
+</div></body></html>
