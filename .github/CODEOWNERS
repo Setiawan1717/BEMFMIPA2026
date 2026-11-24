@@ -1,0 +1,23 @@
+# =====================================================================
+# Siapa yang wajib menyetujui perubahan di tiap folder.
+# Aktif setelah "Require review from Code Owners" dinyalakan di
+# Settings → Branches → Branch protection rule untuk branch main.
+#
+# Ganti @username-... dengan username GitHub sungguhan, lalu hapus tanda #
+# di depan barisnya. Baris yang paling bawah menang bila ada yang tumpang tindih.
+# =====================================================================
+
+# Tim IT pusat BEM: semua file, termasuk file bersama (assets/, supabase/, tools/)
+# *                          @username-tim-it-pusat
+
+# Tiap BSO hanya foldernya sendiri (tim pusat tetap ikut agar bisa membantu)
+# /bso/science-entrepreneur/ @username-science-entrepreneur @username-tim-it-pusat
+# /bso/kharisma/             @username-kharisma             @username-tim-it-pusat
+# /bso/komipa/               @username-komipa               @username-tim-it-pusat
+# /bso/gsc5/                 @username-gsc5                 @username-tim-it-pusat
+# /bso/aswa/                 @username-aswa                 @username-tim-it-pusat
+# /bso/fs2t/                 @username-fs2t                 @username-tim-it-pusat
+
+# File keamanan & data bersama: hanya tim pusat
+# /supabase/                 @username-tim-it-pusat
+# /assets/                   @username-tim-it-pusat

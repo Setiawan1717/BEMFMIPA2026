@@ -85,10 +85,26 @@
       };
     }
 
+    /* --- BSO: akun admin contoh + penyimpanan, ditambahkan ke data demo lama --- */
+    const BSO = () => (window.FC_BSO && window.FC_BSO.daftar) || [];
+    function ensureBso(d) {
+      if (!d.bso) d.bso = { info: {}, pengumuman: [], pendaftaran: [], nextId: 1 };
+      const akun = [["kadep.seniora@demo.id", { departemen: "Seniora" }, "Contoh: Kadep Seniora"]]
+        .concat(BSO().map((b) => [b.slug + "@demo.id", { bso: b.slug }, "Contoh: Admin " + b.nama]));
+      akun.forEach(([email, akses, nama]) => {
+        if (d.accounts.find((a) => a.email === email)) return;
+        const id = "demo-bso-" + email.split("@")[0].replace(/[^a-z0-9]+/gi, "-");
+        d.accounts.push({ email, password: "demo123", id, bsoAdmin: akses });
+        d.profiles[id] = { id, nama, departemen: "Fisika", prodi: "S1 Fisika", angkatan: 2023, keahlian: [] };
+      });
+      return d;
+    }
+
     function db() {
       if (mem) return mem;
       let d = store.load();
-      if (!d) { d = seed(); store.save(d); }
+      if (!d) d = seed();
+      ensureBso(d); store.save(d);
       mem = d;
       return d;
     }
@@ -101,12 +117,23 @@
     const need = () => { if (!me()) throw new Error("Silakan masuk terlebih dahulu."); return me(); };
     const isAdm = () => !!(me() && db().accounts.find((a) => a.id === me() && a.admin));
 
+    const aksesBso = () => {
+      const id = me(); if (!id) return [];
+      if (isAdm()) return BSO().map((b) => b.slug);
+      const a = db().accounts.find((x) => x.id === id); const h = a && a.bsoAdmin;
+      if (!h) return [];
+      return BSO().filter((b) => b.slug === h.bso || b.departemen === h.departemen).map((b) => b.slug);
+    };
+    const bolehBso = (slug) => aksesBso().includes(slug);
+    const pick = (o, keys) => { const r = {}; keys.forEach((k) => { if (o && k in o) r[k] = o[k]; }); return r; };
+    const infoBso = (slug) => Object.assign({ slug, deskripsi: null, pendaftaran_buka: true, pendaftaran_info: "" }, db().bso.info[slug]);
+
     const kodeBaru = () => "FC-" + Math.random().toString(16).slice(2, 10).toUpperCase().padEnd(8, "0");
 
     const SITE_KEY = "fc_site_v1";
     return {
       mode: "demo",
-      reset() { mem = seed(); commit(); try { localStorage.removeItem(SITE_KEY); } catch (e) {} },
+      reset() { mem = ensureBso(seed()); commit(); try { localStorage.removeItem(SITE_KEY); } catch (e) {} },
 
       /* --- pengaturan situs & media --- */
       async getSettings() { try { return JSON.parse(localStorage.getItem(SITE_KEY)) || null; } catch (e) { return null; } },
@@ -235,7 +262,50 @@
         const t = d.tim.find((x) => x.id === l.tim_id); if (t) { t.jumlah_pelamar = Math.max(0, t.jumlah_pelamar - 1); t.jumlah_diterima = d.lamaran.filter((x) => x.tim_id === t.id && x.status === "diterima").length; }
         commit();
       },
-      demoAccounts() { return db().accounts.map((a) => ({ email: a.email, password: a.password, admin: !!a.admin })); }
+      /* --- BSO --- */
+      async bsoAkses() { return wait(aksesBso()); },
+      async getBso(slug) { return wait(clone(infoBso(slug))); },
+      async saveBso(slug, patch) {
+        if (!bolehBso(slug)) throw new Error("Hanya admin BSO ini.");
+        db().bso.info[slug] = Object.assign({}, db().bso.info[slug], pick(patch, ["deskripsi", "pendaftaran_buka", "pendaftaran_info"]));
+        commit(); return wait(clone(infoBso(slug)));
+      },
+      async listPengumuman(slug) { return wait(clone(db().bso.pengumuman.filter((p) => p.bso === slug && (p.terbit || bolehBso(slug))))); },
+      async savePengumuman(slug, item) {
+        if (!bolehBso(slug)) throw new Error("Hanya admin BSO ini.");
+        const d = db().bso, row = pick(item, ["judul", "isi", "link", "gambar_url", "terbit"]);
+        if (item.id) { const r = d.pengumuman.find((x) => x.id === item.id && x.bso === slug); if (!r) throw new Error("Pengumuman tidak ditemukan."); Object.assign(r, row); commit(); return wait(clone(r)); }
+        const r = Object.assign({ terbit: true }, row, { id: d.nextId++, bso: slug, created_at: new Date().toISOString() });
+        d.pengumuman.unshift(r); commit(); return wait(clone(r));
+      },
+      async deletePengumuman(id) {
+        const r = db().bso.pengumuman.find((x) => x.id === id);
+        if (!r || !bolehBso(r.bso)) throw new Error("Tidak diizinkan.");
+        db().bso.pengumuman = db().bso.pengumuman.filter((x) => x.id !== id); commit();
+      },
+      async kirimPendaftaran(slug, jawaban) {
+        const u = need(), d = db();
+        if (!infoBso(slug).pendaftaran_buka) throw new Error("Pendaftaran sedang ditutup.");
+        if (d.bso.pendaftaran.find((x) => x.bso === slug && x.user_id === u)) throw new Error("Kamu sudah mendaftar ke BSO ini.");
+        const pr = d.profiles[u];
+        if (!pr || !pr.nama) throw new Error("Lengkapi profilmu dulu di FMIPA Connect.");
+        const row = Object.assign(pick(pr, ["nama", "nim", "departemen", "prodi", "angkatan", "whatsapp"]), { id: uid(), bso: slug, user_id: u, jawaban: jawaban || {}, status: "menunggu", catatan: "", created_at: new Date().toISOString() });
+        d.bso.pendaftaran.unshift(row); commit(); return wait(clone(row));
+      },
+      async pendaftaranSaya(slug) { const u = me(); return wait(u ? clone(db().bso.pendaftaran.find((x) => x.bso === slug && x.user_id === u) || null) : null); },
+      async batalkanPendaftaran(id) {
+        const u = need(), r = db().bso.pendaftaran.find((x) => x.id === id);
+        if (!r || (r.user_id !== u && !bolehBso(r.bso))) throw new Error("Tidak diizinkan.");
+        db().bso.pendaftaran = db().bso.pendaftaran.filter((x) => x.id !== id); commit();
+      },
+      async listPendaftaran(slug) { if (!bolehBso(slug)) throw new Error("Hanya admin BSO ini."); return wait(clone(db().bso.pendaftaran.filter((x) => x.bso === slug))); },
+      async setStatusPendaftaran(id, patch) {
+        const r = db().bso.pendaftaran.find((x) => x.id === id);
+        if (!r || !bolehBso(r.bso)) throw new Error("Tidak diizinkan.");
+        Object.assign(r, pick(patch, ["status", "catatan"])); commit(); return wait(clone(r));
+      },
+
+      demoAccounts() { return db().accounts.map((a) => ({ email: a.email, password: a.password, admin: !!a.admin, bso: a.bsoAdmin ? (a.bsoAdmin.bso || "Departemen " + a.bsoAdmin.departemen) : "" })); }
     };
   }
 
@@ -335,9 +405,45 @@
       },
       async lamaranSaya() { const id = await need(); return ok(await sb.from("lamaran").select("*").eq("pelamar_id", id).order("created_at", { ascending: false })); },
       async setStatusLamaran(id, status) { return ok(await sb.from("lamaran").update({ status }).eq("id", id).select().single()); },
-      async batalkanLamaran(id) { ok(await sb.from("lamaran").delete().eq("id", id)); }
+      async batalkanLamaran(id) { ok(await sb.from("lamaran").delete().eq("id", id)); },
+
+      /* --- BSO (keamanan dijaga RLS di supabase/bso.sql) --- */
+      async bsoAkses() {
+        if (!(await uidNow())) return [];
+        const r = await sb.rpc("bso_akses_saya");
+        return r.error ? [] : (r.data || []).map((x) => (typeof x === "string" ? x : x.bso_akses_saya));
+      },
+      async getBso(slug) { return ok(await sb.from("bso").select("*").eq("slug", slug).maybeSingle()); },
+      async saveBso(slug, patch) {
+        const row = Object.assign(pickKeys(patch, ["deskripsi", "pendaftaran_buka", "pendaftaran_info"]), { updated_at: new Date().toISOString() });
+        return ok(await sb.from("bso").update(row).eq("slug", slug).select().single());
+      },
+      async listPengumuman(slug) { return ok(await sb.from("bso_pengumuman").select("*").eq("bso", slug).order("created_at", { ascending: false })); },
+      async savePengumuman(slug, item) {
+        const row = pickKeys(item, ["judul", "isi", "link", "gambar_url", "terbit"]);
+        if (item.id) return ok(await sb.from("bso_pengumuman").update(row).eq("id", item.id).eq("bso", slug).select().single());
+        return ok(await sb.from("bso_pengumuman").insert(Object.assign(row, { bso: slug })).select().single());
+      },
+      async deletePengumuman(id) { ok(await sb.from("bso_pengumuman").delete().eq("id", id)); },
+      async kirimPendaftaran(slug, jawaban) {
+        await need();
+        const r = await sb.from("bso_pendaftaran").insert({ bso: slug, jawaban: jawaban || {} }).select().single();
+        if (r.error && /duplicate|unique/i.test(r.error.message)) throw new Error("Kamu sudah mendaftar ke BSO ini.");
+        if (r.error && /foreign key/i.test(r.error.message)) throw new Error("Lengkapi profilmu dulu di FMIPA Connect.");
+        if (r.error && /row-level security/i.test(r.error.message)) throw new Error("Pendaftaran sedang ditutup.");
+        return ok(r);
+      },
+      async pendaftaranSaya(slug) {
+        const id = await uidNow(); if (!id) return null;
+        return ok(await sb.from("bso_pendaftaran").select("*").eq("bso", slug).eq("user_id", id).maybeSingle());
+      },
+      async batalkanPendaftaran(id) { ok(await sb.from("bso_pendaftaran").delete().eq("id", id)); },
+      async listPendaftaran(slug) { return ok(await sb.from("bso_pendaftaran").select("*").eq("bso", slug).order("created_at", { ascending: false })); },
+      async setStatusPendaftaran(id, patch) { return ok(await sb.from("bso_pendaftaran").update(pickKeys(patch, ["status", "catatan"])).eq("id", id).select().single()); }
     };
   }
+
+  function pickKeys(o, keys) { const r = {}; keys.forEach((k) => { if (o && k in o) r[k] = o[k] === "" ? null : o[k]; }); return r; }
 
   function terjemah(m) {
     const map = [
@@ -346,7 +452,8 @@
       [/User already registered/i, "Email ini sudah terdaftar. Silakan masuk."],
       [/Password should be at least/i, "Kata sandi minimal 6 karakter."],
       [/row-level security|permission denied/i, "Kamu tidak punya izin untuk tindakan ini."],
-      [/Failed to fetch|NetworkError/i, "Tidak bisa terhubung ke server. Periksa koneksi internet."]
+      [/Failed to fetch|NetworkError/i, "Tidak bisa terhubung ke server. Periksa koneksi internet."],
+      [/JSON object requested|contains 0 rows/i, "Data tidak ditemukan, atau kamu tidak punya izin untuk mengubahnya."]
     ];
     for (const [re, t] of map) if (re.test(m)) return t;
     return m;

@@ -1,0 +1,70 @@
+/* =====================================================================
+   FMIPA Connect — tambahan gaya untuk halaman BSO (bso/<slug>/)
+   Dipakai bersama style.css. Warna & huruf ikut pengaturan situs utama.
+   ===================================================================== */
+.bso-header .wrap { gap: 16px; }
+.bso-header .header-actions { margin-left: auto; }
+.bso-header .brand small { max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bso-nav { display: flex; gap: 4px; margin-inline: auto; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.bso-nav::-webkit-scrollbar { display: none; }
+.bso-nav a { padding: 8px 12px; border-radius: 999px; font-size: .88rem; color: var(--muted); white-space: nowrap; }
+.bso-nav a:hover { color: var(--text); }
+
+.bso-hero .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.bso-hero .tagline { font-family: var(--serif); font-style: italic; color: var(--lime); font-size: 1.15rem; margin-bottom: 10px; }
+.bso-section { padding: clamp(48px, 7vw, 80px) 0; border-top: 1px solid var(--line); }
+.bso-section > .wrap > h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 10px 0 24px; }
+
+.ann-list { display: grid; gap: 14px; }
+.ann { padding: 20px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); display: grid; gap: 10px; }
+.ann h3 { font-family: var(--sans); font-size: 1.05rem; font-weight: 700; }
+.ann .meta { font-size: .78rem; color: var(--dim); }
+.ann img { width: 100%; max-height: 360px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); }
+
+.bso-grid { display: grid; gap: 16px; }
+.bso-card { display: grid; gap: 10px; padding: 22px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); transition: border-color .2s, transform .2s; }
+.bso-card:hover { border-color: var(--lime); transform: translateY(-2px); }
+.bso-card h3 { font-size: 1.5rem; }
+.bso-card p { color: var(--muted); font-size: .9rem; }
+.bso-dept { margin-top: 34px; }
+.bso-dept:first-child { margin-top: 0; }
+.bso-dept > h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--muted); font-family: var(--sans); font-weight: 600; letter-spacing: .02em; }
+
+.status-card { display: grid; gap: 12px; }
+.status-card .chip { justify-self: start; }
+.profil-box { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; font-size: .88rem; padding: 14px; border-radius: 14px; border: 1px dashed var(--line-2); }
+.profil-box dt { color: var(--dim); }
+.profil-box dd { margin: 0; word-break: break-word; }
+
+/* ---------- panel admin BSO ---------- */
+.bso-adm { padding: calc(var(--header-h) + 28px) 0 60px; }
+.bso-adm .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+.bso-adm .head h1 { font-size: clamp(2rem, 5vw, 2.8rem); }
+.bso-adm .tabs { margin-bottom: 22px; }
+.bso-adm .bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.adm-rows { display: grid; gap: 10px; }
+.adm-row { display: grid; gap: 6px; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--glass); text-align: left; width: 100%; font: inherit; color: inherit; }
+button.adm-row { cursor: pointer; }
+button.adm-row:hover { border-color: var(--line-2); }
+.adm-row .top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+.adm-row h3 { font-family: var(--sans); font-size: 1rem; font-weight: 600; }
+.adm-row .sub { font-size: .82rem; color: var(--muted); }
+.adm-row .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+.kv { display: grid; grid-template-columns: 130px 1fr; gap: 8px 14px; font-size: .9rem; margin: 16px 0; }
+.kv dt { color: var(--dim); }
+.kv dd { margin: 0; word-break: break-word; white-space: pre-line; }
+.akses-note { font-size: .82rem; color: var(--dim); }
+.akses-note a { color: var(--lime); }
+
+@media (min-width: 640px) {
+  .bso-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .bso-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 639px) {
+  .bso-header .brand small { max-width: 150px; }
+  .bso-nav { display: none; }
+  .kv, .profil-box { grid-template-columns: 1fr; gap: 2px; }
+  .kv dd, .profil-box dd { margin-bottom: 8px; }
+}
