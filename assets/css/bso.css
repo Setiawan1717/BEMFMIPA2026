@@ -21,14 +21,6 @@
 .ann .meta { font-size: .78rem; color: var(--dim); }
 .ann img { width: 100%; max-height: 360px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); }
 
-.bso-grid { display: grid; gap: 16px; }
-.bso-card { display: grid; gap: 10px; padding: 22px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); transition: border-color .2s, transform .2s; }
-.bso-card:hover { border-color: var(--lime); transform: translateY(-2px); }
-.bso-card h3 { font-size: 1.5rem; }
-.bso-card p { color: var(--muted); font-size: .9rem; }
-.bso-dept { margin-top: 34px; }
-.bso-dept:first-child { margin-top: 0; }
-.bso-dept > h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--muted); font-family: var(--sans); font-weight: 600; letter-spacing: .02em; }
 
 .status-card { display: grid; gap: 12px; }
 .status-card .chip { justify-self: start; }
@@ -56,12 +48,6 @@ button.adm-row:hover { border-color: var(--line-2); }
 .akses-note { font-size: .82rem; color: var(--dim); }
 .akses-note a { color: var(--lime); }
 
-@media (min-width: 640px) {
-  .bso-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 960px) {
-  .bso-grid { grid-template-columns: repeat(3, 1fr); }
-}
 @media (max-width: 639px) {
   .bso-header .brand small { max-width: 150px; }
   .bso-nav { display: none; }

@@ -3,7 +3,8 @@
    Teks bawaan tiap BSO. Deskripsi & status pendaftaran juga bisa diubah
    admin BSO lewat panel admin-nya (tersimpan di database).
 
-   `slug` = nama folder di bso/<slug>/ dan nilai kolom `bso` di database.
+   `slug` = nama folder <slug>/ (alamatnya situs.vercel.app/<slug>) dan nilai
+   kolom `bso` di database.
    `departemen` = departemen BEM yang menaungi (harus sama persis dengan
    kolom departemen_bem di supabase/bso.sql).
    `pertanyaan` = isian formulir pendaftaran anggota. Jenis: text,

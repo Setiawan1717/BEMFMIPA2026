@@ -1,9 +1,9 @@
 /* =====================================================================
    FMIPA Connect — mesin halaman BSO (dipakai bersama semua BSO)
    Jangan diubah oleh pengurus BSO. Mekanisme khusus tiap BSO ditulis di
-   bso/<slug>/app.js lewat FC.bsoExt (lihat bso/_template/app.js).
+   <slug>/app.js lewat FC.bsoExt (lihat tools/bso-template/app.js).
 
-   <body data-halaman="publik|admin|daftar" data-bso="<slug>" data-root="../../">
+   <body data-halaman="publik|admin" data-bso="<slug>" data-root="../">
    ===================================================================== */
 (function () {
   const FC = window.FC;
@@ -11,7 +11,7 @@
   const body = document.body;
   const HAL = body.dataset.halaman || "publik";
   const SLUG = body.dataset.bso || "";
-  const ROOT = body.dataset.root || "../../";
+  const ROOT = body.dataset.root || "../";
   const app = document.getElementById("app");
   const authArea = document.getElementById("authArea");
   const E = FC.esc;
@@ -101,7 +101,7 @@
 
     app.innerHTML = `
       <section class="page-hero bso-hero"><div class="wrap">
-        <nav class="crumbs" aria-label="Lokasi"><a href="${ROOT}index.html">FMIPA Connect</a><span>/</span><a href="../">BSO</a><span>/</span><span>${E(b.nama)}</span></nav>
+        <nav class="crumbs" aria-label="Lokasi"><a href="${ROOT}">BEM FMIPA</a><span>/</span><span>${E(b.nama)}</span></nav>
         <h1>${E(b.nama)}</h1>
         ${b.tagline ? `<p class="tagline">${E(b.tagline)}</p>` : ""}
         <p>${E(ctx.deskripsi)}</p>
@@ -332,23 +332,8 @@
     });
   }
 
-  /* =================================================================
-     DAFTAR SEMUA BSO (bso/index.html)
-     ================================================================= */
-  function renderDaftar() {
-    const grup = {};
-    REG.daftar.forEach((b) => (grup[b.departemen] = grup[b.departemen] || []).push(b));
-    app.innerHTML = `<section class="page-hero"><div class="wrap">
-        <nav class="crumbs" aria-label="Lokasi"><a href="${ROOT}index.html">FMIPA Connect</a><span>/</span><span>BSO</span></nav>
-        <h1>Badan Semi <em>Otonom</em></h1><p>Organisasi di bawah naungan departemen BEM FMIPA UM. Pilih salah satu untuk melihat kegiatan dan pendaftarannya.</p>
-      </div></section>
-      <section class="bso-section"><div class="wrap">${Object.keys(grup).map((dep) => `<div class="bso-dept"><h2>Departemen ${E(dep)}</h2><div class="bso-grid">${grup[dep].map((b) => `
-        <a class="bso-card" href="${E(b.slug)}/"><span class="eyebrow">by ${E(b.departemen)} BEM FMIPA</span><h3>${E(b.nama)}</h3><p>${E(b.tagline || "")}</p></a>`).join("")}</div></div>`).join("")}</div></section>`;
-  }
-
   /* ---------------- mulai ---------------- */
   function render() {
-    if (HAL === "daftar") return renderDaftar();
     if (!ctx.bso) { app.innerHTML = `<section class="page-hero"><div class="wrap"><h1>BSO tidak ditemukan</h1><p>Slug "${E(SLUG)}" belum ada di assets/js/bso-config.js.</p></div></section>`; return; }
     if (HAL === "admin") renderAdmin(); else renderPublik();
   }

@@ -11,12 +11,12 @@
 # *                          @username-tim-it-pusat
 
 # Tiap BSO hanya foldernya sendiri (tim pusat tetap ikut agar bisa membantu)
-# /bso/science-entrepreneur/ @username-science-entrepreneur @username-tim-it-pusat
-# /bso/kharisma/             @username-kharisma             @username-tim-it-pusat
-# /bso/komipa/               @username-komipa               @username-tim-it-pusat
-# /bso/gsc5/                 @username-gsc5                 @username-tim-it-pusat
-# /bso/aswa/                 @username-aswa                 @username-tim-it-pusat
-# /bso/fs2t/                 @username-fs2t                 @username-tim-it-pusat
+# /science-entrepreneur/ @username-science-entrepreneur @username-tim-it-pusat
+# /kharisma/             @username-kharisma             @username-tim-it-pusat
+# /komipa/               @username-komipa               @username-tim-it-pusat
+# /gsc5/                 @username-gsc5                 @username-tim-it-pusat
+# /aswa/                 @username-aswa                 @username-tim-it-pusat
+# /fs2t/                 @username-fs2t                 @username-tim-it-pusat
 
 # File keamanan & data bersama: hanya tim pusat
 # /supabase/                 @username-tim-it-pusat

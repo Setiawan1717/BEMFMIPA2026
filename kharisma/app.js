@@ -1,6 +1,6 @@
 /* =====================================================================
-   __NAMA__ — MEKANISME KHUSUS
-   File ini milik pengurus __NAMA__. Ubah file di folder bso/__SLUG__/ saja,
+   Kharisma — MEKANISME KHUSUS
+   File ini milik pengurus Kharisma. Ubah file di folder kharisma/ saja,
    jangan mengubah file di assets/ (dipakai bersama semua BSO).
 
    Yang sudah tersedia tanpa perlu kode: Pengumuman, Pendaftaran anggota
@@ -14,8 +14,8 @@
      el   → elemen tempat menggambar isi
      ctx  → { slug, bso, info, user, profil, admin, D, root, refresh() }
             ctx.D = lapisan data (ctx.D.client = klien Supabase, hanya di mode asli)
-   Data khusus BSO ini disimpan di tabel berawalan __SLUG_TABEL___ (lihat
-   supabase/bso/_template.sql), dan setiap tabel WAJIB memakai is_admin_bso('__SLUG__').
+   Data khusus BSO ini disimpan di tabel berawalan kharisma_ (lihat
+   supabase/bso/_template.sql), dan setiap tabel WAJIB memakai is_admin_bso('kharisma').
    ===================================================================== */
 (function () {
   const FC = window.FC;
@@ -31,7 +31,7 @@
             <span class="eyebrow">Tentang kami <span class="contoh-tag">CONTOH</span></span>
             <h2>Kenalan dengan ${E(ctx.bso.nama)}</h2>
             <p class="muted" style="max-width:680px">Bagian ini contoh mekanisme khusus. Ganti isinya di
-            <code>bso/${E(ctx.slug)}/app.js</code>: misalnya struktur pengurus, galeri karya, jadwal latihan,
+            <code>${E(ctx.slug)}/app.js</code>: misalnya struktur pengurus, galeri karya, jadwal latihan,
             voting, absensi, atau formulir lomba.</p>`;
         }
       }

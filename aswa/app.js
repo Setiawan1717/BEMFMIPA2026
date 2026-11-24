@@ -1,6 +1,6 @@
 /* =====================================================================
    Aswa — MEKANISME KHUSUS
-   File ini milik pengurus Aswa. Ubah file di folder bso/aswa/ saja,
+   File ini milik pengurus Aswa. Ubah file di folder aswa/ saja,
    jangan mengubah file di assets/ (dipakai bersama semua BSO).
 
    Yang sudah tersedia tanpa perlu kode: Pengumuman, Pendaftaran anggota
@@ -31,7 +31,7 @@
             <span class="eyebrow">Tentang kami <span class="contoh-tag">CONTOH</span></span>
             <h2>Kenalan dengan ${E(ctx.bso.nama)}</h2>
             <p class="muted" style="max-width:680px">Bagian ini contoh mekanisme khusus. Ganti isinya di
-            <code>bso/${E(ctx.slug)}/app.js</code>: misalnya struktur pengurus, galeri karya, jadwal latihan,
+            <code>${E(ctx.slug)}/app.js</code>: misalnya struktur pengurus, galeri karya, jadwal latihan,
             voting, absensi, atau formulir lomba.</p>`;
         }
       }
