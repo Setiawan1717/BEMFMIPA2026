@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261127a">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261127c">
 </head>
 <body>
   <a href="#app" class="sr-only">Lewati ke konten</a>
@@ -46,15 +46,26 @@
             <a href="#/pelatihan" data-nav="pelatihan">Info Pelatihan <span>Kelas, bootcamp, sertifikasi</span></a>
           </div>
         </div>
-        <div class="dd">
+        <div class="dd dd-mega" data-mega>
           <button type="button" aria-haspopup="true">Bagian Kami <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="dd-menu">
-            <a href="science-entrepreneur/">Science Entrepreneur <span>BSO Departemen Hubeks</span></a>
-            <a href="kharisma/">Kharisma <span>BSO Departemen Kesma</span></a>
-            <a href="komipa/">KOMIPA <span>BSO Departemen Seniora</span></a>
-            <a href="gsc5/">GSC-5 <span>BSO Departemen Seniora</span></a>
-            <a href="aswa/">Aswa <span>BSO Departemen Seniora</span></a>
-            <a href="fs2t/">FS2T <span>BSO Departemen Riskel</span></a>
+          <div class="dd-menu mega-menu">
+            <div class="mega-side">
+              <span class="mega-label">Bagian Kami</span>
+              <button type="button" class="mega-tab" data-mega-tab="" aria-pressed="true">Semua BSO <small>6</small></button>
+              <button type="button" class="mega-tab" data-mega-tab="Hubeks" aria-pressed="false">Hubeks <small>1</small></button>
+              <button type="button" class="mega-tab" data-mega-tab="Kesma" aria-pressed="false">Kesma <small>1</small></button>
+              <button type="button" class="mega-tab" data-mega-tab="Seniora" aria-pressed="false">Seniora <small>3</small></button>
+              <button type="button" class="mega-tab" data-mega-tab="Riskel" aria-pressed="false">Riskel <small>1</small></button>
+              <a class="mega-more" href="#/about">Struktur BEM <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+            </div>
+            <div class="mega-grid">
+              <a href="science-entrepreneur/" data-dept="Hubeks"><img src="assets/img/bso/science-entrepreneur.svg" alt="" width="40" height="40"><span><b>Science Entrepreneur</b><small>BSO Departemen Hubeks</small></span></a>
+              <a href="kharisma/" data-dept="Kesma"><img src="assets/img/bso/kharisma.svg" alt="" width="40" height="40"><span><b>Kharisma</b><small>BSO Departemen Kesma</small></span></a>
+              <a href="komipa/" data-dept="Seniora"><img src="assets/img/bso/komipa.svg" alt="" width="40" height="40"><span><b>KOMIPA</b><small>BSO Departemen Seniora</small></span></a>
+              <a href="gsc5/" data-dept="Seniora"><img src="assets/img/bso/gsc5.svg" alt="" width="40" height="40"><span><b>GSC-5</b><small>BSO Departemen Seniora</small></span></a>
+              <a href="aswa/" data-dept="Seniora"><img src="assets/img/bso/aswa.svg" alt="" width="40" height="40"><span><b>Aswa</b><small>BSO Departemen Seniora</small></span></a>
+              <a href="fs2t/" data-dept="Riskel"><img src="assets/img/bso/fs2t.svg" alt="" width="40" height="40"><span><b>FS2T</b><small>BSO Departemen Riskel</small></span></a>
+            </div>
           </div>
         </div>
         <a href="#/teman" data-nav="teman">Cari Teman Lomba</a>
@@ -100,10 +111,10 @@
           <h4>Layanan</h4>
           <ul><li><a href="#/about">About</a></li><li><a href="#/teman">Cari Teman Lomba</a></li><li><a href="#/pengaduan">Kanal Pengaduan</a></li><li><a href="#/pengaduan?cek=1">Cek Status Laporan</a></li><li><a href="admin.html">Panel Admin</a></li></ul>
         </div>
-        <div>
+        <div class="footer-bso-col">
           <h4>Bagian Kami</h4>
           <!-- Daftar BSO: sesuaikan bila ada BSO baru (daftar lengkap di assets/js/bso-config.js) -->
-          <ul><li><a href="science-entrepreneur/">Science Entrepreneur</a></li><li><a href="kharisma/">Kharisma</a></li><li><a href="komipa/">KOMIPA</a></li><li><a href="gsc5/">GSC-5</a></li><li><a href="aswa/">Aswa</a></li><li><a href="fs2t/">FS2T</a></li></ul>
+          <ul class="footer-bso-grid"><li><a href="science-entrepreneur/"><img src="assets/img/bso/science-entrepreneur.svg" alt="" width="22" height="22">Science Entrepreneur</a></li><li><a href="kharisma/"><img src="assets/img/bso/kharisma.svg" alt="" width="22" height="22">Kharisma</a></li><li><a href="komipa/"><img src="assets/img/bso/komipa.svg" alt="" width="22" height="22">KOMIPA</a></li><li><a href="gsc5/"><img src="assets/img/bso/gsc5.svg" alt="" width="22" height="22">GSC-5</a></li><li><a href="aswa/"><img src="assets/img/bso/aswa.svg" alt="" width="22" height="22">Aswa</a></li><li><a href="fs2t/"><img src="assets/img/bso/fs2t.svg" alt="" width="22" height="22">FS2T</a></li></ul>
         </div>
         <div>
           <h4>Kontak</h4>
@@ -121,6 +132,6 @@
   <script src="assets/js/org.js?v=20261128a"></script>
   <script src="assets/js/data.js?v=20261124b"></script>
   <script src="assets/js/ui.js?v=20261124b"></script>
-  <script src="assets/js/app.js?v=20261128a"></script>
+  <script src="assets/js/app.js?v=20261128b"></script>
 </body>
 </html>
