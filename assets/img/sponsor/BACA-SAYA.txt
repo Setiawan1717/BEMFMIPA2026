@@ -1,0 +1,4 @@
+Taruh file logo sponsor di folder ini (PNG transparan atau SVG),
+lalu tulis path-nya di assets/js/org.js bagian sponsor, misalnya:
+  logo: "assets/img/sponsor/nama-sponsor.png"
+Atau unggah langsung lewat Panel Admin -> Situs -> Beranda -> Sponsor & mitra.

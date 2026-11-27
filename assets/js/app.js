@@ -79,6 +79,32 @@
   let ORG = window.FC_ORG || {};
   const contoh = () => (ORG.TANDAI_CONTOH ? ' <span class="contoh-tag">CONTOH</span>' : "");
 
+  /* Bagian sponsor & mitra di bawah beranda (data: ORG.sponsor, bisa diedit di Panel Admin → Situs → Beranda).
+     Logo yang punya link membuka situs sponsor di tab baru. Logo kosong tampil sebagai kotak placeholder. */
+  function sponsorSection(O) {
+    const list = (O.sponsor || []).filter((x) => x && (x.nama || x.logo));
+    if (!list.length) return "";
+    const tiles = list.map((x) => {
+      const nama = x.nama || "Sponsor", url = FC.safeUrl(x.url), img = FC.imgUrl(x.logo);
+      const size = ["kecil", "besar"].includes(x.ukuran) ? " sp-" + x.ukuran : "";
+      const inner = img ? `<img src="${esc(img)}" alt="${esc(nama)}" loading="lazy" decoding="async">` : `<span class="sp-ph">${icon("spark")}<b>${esc(nama)}</b><small>Logo menyusul</small></span>`;
+      return url
+        ? `<a class="sp-logo${size}" href="${esc(url)}" target="_blank" rel="noopener noreferrer" title="${esc(nama)}" aria-label="${esc(nama)} (buka situs di tab baru)">${inner}</a>`
+        : `<div class="sp-logo${size}" title="${esc(nama)}">${inner}</div>`;
+    }).join("");
+    return `
+      <section class="section sponsor-sec" style="padding-top:0" data-sec="sponsor">
+        <div class="wrap">
+          <div class="section-head reveal" style="text-align:center;justify-items:center">
+            <span class="eyebrow">Didukung oleh</span>
+            <h2 style="margin-top:2px">Mitra &amp; <em>sponsor</em>${contoh()}</h2>
+            <p>Terima kasih kepada mitra dan sponsor yang telah mendukung kegiatan ${esc(O.organisasi || "kami")}. Klik logo untuk mengunjungi situs mereka.</p>
+          </div>
+          <div class="sponsor-panel reveal">${tiles}</div>
+        </div>
+      </section>`;
+  }
+
   const SIL_ONE = '<svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="40" r="17" fill="currentColor"/><path d="M14 100c0-24 16-36 36-36s36 12 36 36Z" fill="currentColor"/></svg>';
   const SIL_GROUP = '<svg class="sil" viewBox="0 0 160 90" style="width:92%" aria-hidden="true"><g fill="currentColor"><circle cx="40" cy="38" r="12"/><path d="M14 90c0-18 11-28 26-28s26 10 26 28Z"/><circle cx="120" cy="38" r="12"/><path d="M94 90c0-18 11-28 26-28s26 10 26 28Z"/><circle cx="80" cy="30" r="14"/><path d="M50 90c0-21 13-32 30-32s30 11 30 32Z"/></g></svg>';
   const SCENE = (seed) => { const h = 40 + ((seed * 37) % 30); return `<svg class="scene" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="sk${seed}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--tint)"/><stop offset="1" style="stop-color:var(--bg-2)"/></linearGradient></defs><rect width="400" height="250" fill="url(#sk${seed})"/><circle cx="${300 - seed * 20}" cy="70" r="34" style="fill:var(--lime)" fill-opacity=".18"/><path d="M0 ${150 + h} Q100 ${120 + h / 2} 200 ${150 + h / 3} T400 ${140 + h / 2} V250 H0Z" style="fill:var(--green)" fill-opacity=".18"/><g style="fill:var(--bg-deep)" fill-opacity=".55"><rect x="60" y="120" width="70" height="90"/><rect x="140" y="95" width="110" height="115"/><rect x="260" y="130" width="60" height="80"/></g><g style="fill:var(--cream)" fill-opacity=".18">${Array.from({ length: 12 }, (_, i) => `<rect x="${152 + (i % 4) * 24}" y="${108 + Math.floor(i / 4) * 28}" width="12" height="14"/>`).join("")}</g></svg>`; };
@@ -245,7 +271,9 @@
             </form>
           </div>
         </div>
-      </section>`;
+      </section>
+
+      ${sponsorSection(O)}`;
 
     /* interaksi */
     $$("[data-scroll]", app).forEach((b) => b.onclick = () => scrollToSec(b.dataset.scroll));

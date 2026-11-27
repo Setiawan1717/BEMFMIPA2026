@@ -217,6 +217,27 @@ window.FC_ORG = {
      Kosongkan [] bila belum ada agenda.                                   */
   agenda: [],
 
+  /* ---------------- SPONSOR & MITRA ----------------
+     Tampil di bagian paling bawah beranda, di atas footer.
+     Format: { nama: "Nama Sponsor", logo: "assets/img/sponsor/nama.png", url: "https://situs-sponsor.com", ukuran: "sedang" }
+     - logo : path file di assets/img/sponsor/ atau link gambar. Kosong = kotak placeholder.
+     - url  : situs sponsor, dibuka di tab baru saat logo diklik. Kosong = logo tidak bisa diklik.
+     - ukuran: "kecil", "sedang", atau "besar" (sponsor utama tampil lebih lebar).
+     Bisa juga diisi lewat Panel Admin → Situs → Beranda → Sponsor & mitra.
+     Kosongkan [] untuk menyembunyikan bagian ini.                          */
+  sponsor: [
+    { nama: "Sponsor Utama 1", logo: "", url: "", ukuran: "besar" },
+    { nama: "Sponsor Utama 2", logo: "", url: "", ukuran: "besar" },
+    { nama: "Sponsor 3", logo: "", url: "", ukuran: "sedang" },
+    { nama: "Sponsor 4", logo: "", url: "", ukuran: "sedang" },
+    { nama: "Sponsor 5", logo: "", url: "", ukuran: "sedang" },
+    { nama: "Sponsor 6", logo: "", url: "", ukuran: "sedang" },
+    { nama: "Mitra 7", logo: "", url: "", ukuran: "kecil" },
+    { nama: "Mitra 8", logo: "", url: "", ukuran: "kecil" },
+    { nama: "Mitra 9", logo: "", url: "", ukuran: "kecil" },
+    { nama: "Mitra 10", logo: "", url: "", ukuran: "kecil" }
+  ],
+
   /* ---------------- PRESTASI (contoh) ---------------- */
   prestasi: [
     { peringkat: "Juara 1", lomba: "Olimpiade Sains Tingkat Nasional", nama: "Nama Mahasiswa", dept: "Matematika", tahun: "2027" },
