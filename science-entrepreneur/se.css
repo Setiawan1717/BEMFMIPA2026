@@ -51,3 +51,14 @@
   .se-kartu-wrap { grid-template-columns: 1fr; }
   .se-kartu { max-width: 360px; transform: none; }
 }
+
+/* ---- riwayat poin & status ---- */
+.se-mutasi { list-style: none; padding: 0; margin: 0; display: grid; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.se-mutasi li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--line); }
+.se-mutasi li:first-child { border-top: 0; }
+.se-mutasi b { display: block; font-weight: 600; font-size: .92rem; }
+.se-mutasi small { color: var(--dim); font-size: .78rem; }
+.se-mutasi span { font-weight: 800; white-space: nowrap; }
+.se-mutasi .plus, .se-plus { color: var(--lime); }
+.se-mutasi .min { color: var(--danger); }
+.se-bayar label:has(input:disabled) { opacity: .55; }
