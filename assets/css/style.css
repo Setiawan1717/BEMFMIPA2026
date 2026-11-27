@@ -832,21 +832,17 @@ a.dept-card { display: block; }
 
 /* ---------- mega-menu "Bagian Kami" ---------- */
 .dd-mega { position: static; }
-.dd-mega .mega-menu { left: 50%; top: calc(100% - 6px); transform: translate(-50%, -6px); width: min(1080px, calc(100vw - 40px)); padding: 0; display: grid; grid-template-columns: 250px 1fr; overflow: hidden; border-radius: 20px; }
+.dd-mega .mega-menu { left: 50%; top: calc(100% - 6px); transform: translate(-50%, -6px); width: min(1080px, calc(100vw - 40px)); padding: 0; display: grid; grid-template-columns: 290px 1fr; overflow: hidden; border-radius: 20px; }
 .dd-mega:hover .mega-menu, .dd-mega:focus-within .mega-menu, .dd-mega.open .mega-menu { transform: translate(-50%, 0); }
 .dd-mega::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 0; }
 .mega-side { display: flex; flex-direction: column; padding: 22px 0; border-right: 1px solid var(--line); background: color-mix(in srgb, var(--lime) 3%, transparent); }
-.mega-label { padding: 0 24px 14px; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); border-bottom: 1px solid var(--line); margin-bottom: 8px; }
-.mega-side .mega-tab { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 11px 24px; border: 0; background: none; color: var(--muted); font: inherit; font-size: .95rem; font-weight: 600; text-align: left; cursor: pointer; transition: background .2s, color .2s; }
-.mega-side .mega-tab small { font-size: .72rem; color: var(--dim); font-weight: 600; }
-.mega-side .mega-tab:hover { color: var(--text); background: color-mix(in srgb, var(--lime) 6%, transparent); }
-.mega-side .mega-tab[aria-pressed="true"] { background: var(--grad); color: var(--ink); }
-.mega-side .mega-tab[aria-pressed="true"] small { color: var(--ink); opacity: .7; }
-.dd-menu .mega-more { margin-top: auto; flex-direction: row; align-items: center; gap: 8px; padding: 14px 24px 0; border-radius: 0; font-size: .85rem; color: var(--muted); }
+.mega-label { padding: 0 24px 10px; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+.mega-title { font-family: var(--serif); font-weight: 500; font-size: 1.7rem; line-height: 1.1; padding: 4px 24px 0; color: var(--cream); }
+.mega-desc { padding: 12px 24px 0; font-size: .86rem; line-height: 1.6; color: var(--muted); }
+.dd-menu .mega-more { margin-top: auto; padding-top: 18px !important; flex-direction: row; align-items: center; gap: 8px; padding: 14px 24px 0; border-radius: 0; font-size: .85rem; color: var(--muted); }
 .dd-menu .mega-more:hover { background: none; color: var(--lime); }
 .mega-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; align-content: stretch; }
-.mega-grid.filtered { grid-auto-rows: auto; align-content: start; }
-@media (max-width: 1180px) { .mega-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dd-mega .mega-menu { grid-template-columns: 210px 1fr; } }
+@media (max-width: 1180px) { .mega-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dd-mega .mega-menu { grid-template-columns: 250px 1fr; } }
 .dd-menu .mega-grid a { flex-direction: row; align-items: center; gap: 14px; padding: 22px 22px; border-radius: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-height: 104px; }
 .dd-menu .mega-grid a:nth-child(3n of :not([hidden])) { border-right: 0; }
 @media (max-width: 1180px) { .dd-menu .mega-grid a { border-right: 1px solid var(--line) !important; } .dd-menu .mega-grid a:nth-child(2n of :not([hidden])) { border-right: 0 !important; } }
