@@ -1,19 +1,19 @@
 -- =====================================================================
--- FMIPA Connect — Badan Semi Otonom (BSO)
+-- FMIPA Connect — Sub Divisi
 -- Jalankan SETELAH schema.sql: SQL Editor → New query → tempel → Run.
 -- Aman dijalankan ulang.
 --
 -- Hak akses bertingkat:
---   1. Admin pusat       : baris di public.admins (yang sudah ada)  → semua BSO
---   2. Admin departemen  : bso_admins.departemen_bem = 'Seniora'    → semua BSO Seniora
---   3. Admin BSO         : bso_admins.bso = 'gsc5'                  → hanya GSC-5
+--   1. Admin pusat       : baris di public.admins (yang sudah ada)  → semua sub divisi
+--   2. Admin departemen  : bso_admins.departemen_bem = 'Seniora'    → semua sub divisi Seniora
+--   3. Admin sub divisi  : bso_admins.bso = 'gsc5'                  → hanya GSC-5
 --
--- Admin departemen & admin BSO TIDAK masuk tabel public.admins, jadi
+-- Admin departemen & admin sub divisi TIDAK masuk tabel public.admins, jadi
 -- mereka tidak bisa membuka Kanal Pengaduan, Info, atau Edit situs utama.
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
--- 1. DAFTAR BSO
+-- 1. DAFTAR SUB DIVISI
 --    Kolom `departemen_bem` = departemen BEM yang menaungi (Hubeks, Kesma,
 --    Seniora, Riskel), BUKAN departemen kuliah (Matematika, dst.).
 -- ---------------------------------------------------------------------
@@ -37,7 +37,7 @@ insert into public.bso (slug, nama, departemen_bem) values
 on conflict (slug) do update set nama = excluded.nama, departemen_bem = excluded.departemen_bem;
 
 -- ---------------------------------------------------------------------
--- 2. ADMIN BSO / DEPARTEMEN
+-- 2. ADMIN SUB DIVISI / DEPARTEMEN
 --    Satu baris = satu hak. Isi SALAH SATU: bso ATAU departemen_bem.
 -- ---------------------------------------------------------------------
 create table if not exists public.bso_admins (
@@ -50,7 +50,7 @@ create table if not exists public.bso_admins (
   unique nulls not distinct (user_id, bso, departemen_bem)
 );
 
--- Boleh mengelola BSO ini? (admin pusat, admin departemennya, atau admin BSO itu)
+-- Boleh mengelola sub divisi ini? (admin pusat, admin departemennya, atau admin sub divisi itu)
 create or replace function public.is_admin_bso(p_bso text)
 returns boolean
 language sql stable security definer set search_path = public
@@ -64,7 +64,7 @@ as $$
   );
 $$;
 
--- Daftar BSO yang boleh dikelola akun yang sedang masuk
+-- Daftar sub divisi yang boleh dikelola akun yang sedang masuk
 create or replace function public.bso_akses_saya()
 returns setof text
 language sql stable security definer set search_path = public
@@ -78,7 +78,7 @@ alter table public.bso_admins enable row level security;
 drop policy if exists "bso_admins lihat" on public.bso_admins;
 create policy "bso_admins lihat" on public.bso_admins
   for select using (user_id = auth.uid() or public.is_admin());
--- Hanya admin pusat yang boleh menambah/mencabut admin BSO
+-- Hanya admin pusat yang boleh menambah/mencabut admin sub divisi
 drop policy if exists "bso_admins pusat" on public.bso_admins;
 create policy "bso_admins pusat" on public.bso_admins
   for all using (public.is_admin()) with check (public.is_admin());
@@ -92,12 +92,12 @@ create policy "bso admin ubah" on public.bso
 drop policy if exists "bso pusat kelola" on public.bso;
 create policy "bso pusat kelola" on public.bso
   for all using (public.is_admin()) with check (public.is_admin());
--- Admin BSO hanya boleh mengubah kolom ini (bukan nama/departemen/slug)
+-- Admin sub divisi hanya boleh mengubah kolom ini (bukan nama/departemen/slug)
 revoke update on public.bso from authenticated, anon;
 grant  update (deskripsi, pendaftaran_buka, pendaftaran_info, updated_at) on public.bso to authenticated;
 
 -- ---------------------------------------------------------------------
--- 3. PENGUMUMAN BSO (mekanisme bersama)
+-- 3. PENGUMUMAN SUB DIVISI (mekanisme bersama)
 -- ---------------------------------------------------------------------
 create table if not exists public.bso_pengumuman (
   id          bigint generated always as identity primary key,
@@ -121,7 +121,7 @@ create policy "pengumuman admin" on public.bso_pengumuman
   for all using (public.is_admin_bso(bso)) with check (public.is_admin_bso(bso));
 
 -- ---------------------------------------------------------------------
--- 4. PENDAFTARAN ANGGOTA BSO (mekanisme bersama)
+-- 4. PENDAFTARAN ANGGOTA SUB DIVISI (mekanisme bersama)
 --    Pertanyaan formulir diatur di assets/js/bso-config.js,
 --    jawabannya disimpan di kolom `jawaban` (jsonb).
 -- ---------------------------------------------------------------------
@@ -182,7 +182,7 @@ create trigger bso_pendaftaran_isi before insert on public.bso_pendaftaran
 -- 5. MENAMBAH ADMIN (jalankan oleh admin pusat, ganti emailnya)
 --    Orangnya harus sudah mendaftar akun di situs lebih dulu.
 --
--- Admin satu BSO (contoh: ketua GSC-5):
+-- Admin satu sub divisi (contoh: ketua GSC-5):
 -- insert into public.bso_admins (user_id, bso)
 --   select id, 'gsc5' from auth.users where email = 'ketua.gsc5@students.um.ac.id';
 --

@@ -1,7 +1,7 @@
 /* =====================================================================
    KOMIPA — MEKANISME KHUSUS
    File ini milik pengurus KOMIPA. Ubah file di folder komipa/ saja,
-   jangan mengubah file di assets/ (dipakai bersama semua BSO).
+   jangan mengubah file di assets/ (dipakai bersama semua sub divisi).
 
    Yang sudah tersedia tanpa perlu kode: Pengumuman, Pendaftaran anggota
    (pertanyaannya di assets/js/bso-config.js), dan Pengaturan.
@@ -14,7 +14,7 @@
      el   → elemen tempat menggambar isi
      ctx  → { slug, bso, info, user, profil, admin, D, root, refresh() }
             ctx.D = lapisan data (ctx.D.client = klien Supabase, hanya di mode asli)
-   Data khusus BSO ini disimpan di tabel berawalan komipa_ (lihat
+   Data khusus sub divisi ini disimpan di tabel berawalan komipa_ (lihat
    supabase/bso/_template.sql), dan setiap tabel WAJIB memakai is_admin_bso('komipa').
    ===================================================================== */
 (function () {

@@ -59,7 +59,7 @@
     $$("[data-logout]").forEach((b) => b.onclick = async (e) => { e.preventDefault(); await D.signOut(); await refreshAuth(); FC.toast("Kamu sudah keluar."); go("#/"); });
   }
 
-  /* mega-menu "Bagian Kami": tab departemen di kiri menyaring grid BSO di kanan */
+  /* mega-menu "Bagian Kami": tab departemen di kiri menyaring grid sub divisi di kanan */
   (function megaMenu() {
     const m = document.querySelector("[data-mega]"); if (!m) return;
     const pilih = (tab) => {
