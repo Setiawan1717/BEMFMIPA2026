@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css?v=20261124b">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261127a">
 </head>
 <body>
   <a href="#app" class="sr-only">Lewati ke konten</a>
@@ -46,6 +46,17 @@
             <a href="#/pelatihan" data-nav="pelatihan">Info Pelatihan <span>Kelas, bootcamp, sertifikasi</span></a>
           </div>
         </div>
+        <div class="dd">
+          <button type="button" aria-haspopup="true">Bagian Kami <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="dd-menu">
+            <a href="science-entrepreneur/">Science Entrepreneur <span>BSO Departemen Hubeks</span></a>
+            <a href="kharisma/">Kharisma <span>BSO Departemen Kesma</span></a>
+            <a href="komipa/">KOMIPA <span>BSO Departemen Seniora</span></a>
+            <a href="gsc5/">GSC-5 <span>BSO Departemen Seniora</span></a>
+            <a href="aswa/">Aswa <span>BSO Departemen Seniora</span></a>
+            <a href="fs2t/">FS2T <span>BSO Departemen Riskel</span></a>
+          </div>
+        </div>
         <a href="#/teman" data-nav="teman">Cari Teman Lomba</a>
         <a href="#/pengaduan" data-nav="pengaduan">Kanal Pengaduan</a>
       </nav>
@@ -60,6 +71,13 @@
     <a href="#/lomba" data-nav="lomba">Info Lomba</a>
     <a href="#/beasiswa" data-nav="beasiswa">Info Beasiswa</a>
     <a href="#/pelatihan" data-nav="pelatihan">Info Pelatihan</a>
+    <span class="mobile-label">Bagian Kami</span>
+    <a href="science-entrepreneur/" class="sub">Science Entrepreneur</a>
+    <a href="kharisma/" class="sub">Kharisma</a>
+    <a href="komipa/" class="sub">KOMIPA</a>
+    <a href="gsc5/" class="sub">GSC-5</a>
+    <a href="aswa/" class="sub">Aswa</a>
+    <a href="fs2t/" class="sub">FS2T</a>
     <a href="#/teman" data-nav="teman">Cari Teman Lomba</a>
     <a href="#/pengaduan" data-nav="pengaduan">Kanal Pengaduan</a>
     <div id="mobileAuth"></div>
@@ -83,20 +101,15 @@
           <ul><li><a href="#/about">About</a></li><li><a href="#/teman">Cari Teman Lomba</a></li><li><a href="#/pengaduan">Kanal Pengaduan</a></li><li><a href="#/pengaduan?cek=1">Cek Status Laporan</a></li><li><a href="admin.html">Panel Admin</a></li></ul>
         </div>
         <div>
+          <h4>Bagian Kami</h4>
+          <!-- Daftar BSO: sesuaikan bila ada BSO baru (daftar lengkap di assets/js/bso-config.js) -->
+          <ul><li><a href="science-entrepreneur/">Science Entrepreneur</a></li><li><a href="kharisma/">Kharisma</a></li><li><a href="komipa/">KOMIPA</a></li><li><a href="gsc5/">GSC-5</a></li><li><a href="aswa/">Aswa</a></li><li><a href="fs2t/">FS2T</a></li></ul>
+        </div>
+        <div>
           <h4>Kontak</h4>
           <ul id="footerContact"></ul>
         </div>
       </div>
-      <!-- Badan Semi Otonom: sesuaikan bila ada BSO baru (daftar lengkap di assets/js/bso-config.js) -->
-      <nav class="footer-bso" aria-label="Badan Semi Otonom">
-        <span>Badan Semi Otonom</span>
-        <a href="science-entrepreneur/">Science Entrepreneur</a>
-        <a href="kharisma/">Kharisma</a>
-        <a href="komipa/">KOMIPA</a>
-        <a href="gsc5/">GSC-5</a>
-        <a href="aswa/">Aswa</a>
-        <a href="fs2t/">FS2T</a>
-      </nav>
       <div class="footer-bottom"><span>© <span id="yr"></span> FMIPA Connect · <span data-cfg="PENGELOLA"></span></span><span>Dibangun untuk mahasiswa FMIPA</span></div>
     </div>
   </footer>
