@@ -120,6 +120,13 @@ Hanya admin pusat yang bisa menambah atau mencabut admin sub divisi.
 Akun demo (mode demo): `komipa@demo.id`, `gsc5@demo.id`, `aswa@demo.id`, `kharisma@demo.id`, `fs2t@demo.id`,
 `science-entrepreneur@demo.id`, dan `kadep.seniora@demo.id`, semuanya dengan kata sandi `demo123`.
 
+### Science Entrepreneur: Unit Usaha, member, dan poin SE
+
+Jalankan `supabase/bso/science-entrepreneur.sql` di SQL Editor (setelah `schema.sql` dan `bso.sql`).
+Produk & harga diubah di `science-entrepreneur/katalog.js`. Alurnya: member/pemesan mengisi form di situs,
+bayar manual ke admin SE, lalu admin SE menandai lunas di panel admin (tab **Pesanan** dan **Member**).
+Poin (cashback 10%, saldo awal kartu 15.000) hanya berubah lewat fungsi database, tidak bisa diubah langsung dari browser.
+
 ### Aturan supaya aman
 
 1. **Pengurus sub divisi hanya mengubah folder `<slug>/` miliknya.** File di `assets/`, `supabase/`, dan `tools/` dipakai bersama; ubah lewat tim IT pusat.
