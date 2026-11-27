@@ -28,8 +28,8 @@ window.FC_BSO = {
       slug: "kharisma",
       nama: "Kharisma",
       departemen: "Kesma",
-      tagline: "",
-      deskripsi: "Kharisma adalah Badan Semi Otonom di bawah Departemen Kesma BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk berkegiatan, berkembang, dan berkontribusi bersama.",
+      tagline: "Tumbuh bersama, peduli sesama.",
+      deskripsi: "Kharisma adalah Badan Semi Otonom di bawah Departemen Kesma BEM FMIPA UM. Kami menjadi ruang bagi mahasiswa FMIPA untuk saling peduli, tumbuh bersama, dan menghadirkan kegiatan yang bermanfaat bagi warga fakultas.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
@@ -38,8 +38,8 @@ window.FC_BSO = {
       slug: "komipa",
       nama: "KOMIPA",
       departemen: "Seniora",
-      tagline: "",
-      deskripsi: "KOMIPA adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk menyalurkan minat, berkarya, dan berprestasi.",
+      tagline: "Ruang berkarya mahasiswa MIPA.",
+      deskripsi: "KOMIPA adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang mewadahi mahasiswa FMIPA untuk menyalurkan minat, mengasah kreativitas, dan menampilkan karya terbaiknya.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "portofolio", label: "Link portofolio (opsional)", type: "url" }
@@ -49,8 +49,8 @@ window.FC_BSO = {
       slug: "gsc5",
       nama: "GSC-5",
       departemen: "Seniora",
-      tagline: "",
-      deskripsi: "GSC-5 adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk menyalurkan minat, berlatih, dan berprestasi.",
+      tagline: "Berlatih tekun, berprestasi bersama.",
+      deskripsi: "GSC-5 adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM. Kami mewadahi mahasiswa FMIPA yang ingin berlatih rutin, mengasah kemampuan, dan membawa nama FMIPA berprestasi di berbagai ajang.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
@@ -59,8 +59,8 @@ window.FC_BSO = {
       slug: "aswa",
       nama: "Aswa",
       departemen: "Seniora",
-      tagline: "",
-      deskripsi: "Aswa adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk menyalurkan minat, berkarya, dan berprestasi.",
+      tagline: "Ekspresikan dirimu, banggakan FMIPA.",
+      deskripsi: "Aswa adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi tempat mahasiswa FMIPA mengekspresikan diri lewat seni, berkarya bersama, dan tampil membanggakan fakultas.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
@@ -69,8 +69,8 @@ window.FC_BSO = {
       slug: "fs2t",
       nama: "FS2T",
       departemen: "Riskel",
-      tagline: "",
-      deskripsi: "FS2T adalah Badan Semi Otonom di bawah Departemen Riskel BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk berkembang di bidang riset dan keilmuan.",
+      tagline: "Dari rasa ingin tahu menjadi riset.",
+      deskripsi: "FS2T adalah Badan Semi Otonom di bawah Departemen Riskel BEM FMIPA UM yang menumbuhkan budaya riset di kalangan mahasiswa FMIPA, dari diskusi keilmuan hingga persiapan lomba karya tulis dan penelitian.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "minat_riset", label: "Bidang riset yang kamu minati", type: "text" }
