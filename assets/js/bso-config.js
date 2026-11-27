@@ -21,6 +21,9 @@
                (status otomatis dari tanggal; boleh dipaksa "akan" | "berjalan" | "selesai"),
      galeri:   [{ src, caption }],
      kontak:   { instagram, whatsapp, narahubung, email }
+     sembunyikan: ["galeri", "pengumuman", "daftar"] → halaman bawaan yang tidak dipakai
+               (tab admin Pendaftaran/Pengumuman ikut tersembunyi),
+     cta:      { teks, href } → tombol utama di Beranda (bawaan: Daftar)
    ===================================================================== */
 window.FC_BSO = {
   daftar: [
@@ -30,6 +33,9 @@ window.FC_BSO = {
       departemen: "Hubeks",
       tagline: "Sains yang berdaya guna, ide yang bernilai usaha.",
       deskripsi: "Science Entrepreneur adalah sub divisi Departemen Hubeks BEM FMIPA UM yang mewadahi mahasiswa FMIPA untuk mengembangkan jiwa wirausaha berbasis sains, dari ide hingga menjadi produk.",
+      // Halaman bawaan yang tidak dipakai SE (diganti Unit Usaha & Member di science-entrepreneur/app.js)
+      sembunyikan: ["galeri", "pengumuman", "daftar"],
+      cta: { teks: "Lihat unit usaha", href: "#/unit-usaha" },
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "ide_usaha", label: "Ide usaha berbasis sains yang ingin kamu kembangkan (opsional)", type: "textarea" }

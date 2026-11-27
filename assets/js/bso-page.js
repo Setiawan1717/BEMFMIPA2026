@@ -23,6 +23,8 @@
   const STATUS = { menunggu: ["Menunggu", "warn"], diterima: ["Diterima", ""], ditolak: ["Ditolak", "gray"] };
   const chipStatus = (s) => { const [t, c] = STATUS[s] || [s, "gray"]; return `<span class="chip ${c}">${E(t)}</span>`; };
   const waLink = (n) => { const d = String(n || "").replace(/\D/g, ""); return d ? "https://wa.me/" + (d.startsWith("0") ? "62" + d.slice(1) : d) : ""; };
+  // Halaman bawaan yang bisa disembunyikan per sub divisi lewat `sembunyikan` di bso-config.js
+  const tampil = (id) => !((ctx.bso && ctx.bso.sembunyikan) || []).includes(id);
   const pertanyaan = () => (ctx.bso && ctx.bso.pertanyaan) || [{ name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }];
 
   async function muatKonteks() {
@@ -121,9 +123,13 @@
       { id: "galeri", judul: "Galeri", render: hGaleri, ada: (d.galeri || []).length > 0 },
       { id: "pengumuman", judul: "Pengumuman", render: hPengumuman },
     ];
-    (ext().publik || []).forEach((s) => list.push({ id: s.id, judul: s.judul, render: (el) => { el.innerHTML = `<section class="bso-page"><div class="wrap" data-ext></div></section>`; try { s.render(el.querySelector("[data-ext]"), ctx); } catch (e) { console.error(e); } } }));
+    // s.penuh = true → bagian khusus menggambar seluruh halaman sendiri (boleh pakai ctx.ui.judulHal)
+    (ext().publik || []).forEach((s) => list.push({ id: s.id, judul: s.judul, sub: s.sub, render: (el) => {
+      if (!s.penuh) el.innerHTML = `<section class="bso-page"><div class="wrap" data-ext></div></section>`;
+      try { s.render(s.penuh ? el : el.querySelector("[data-ext]"), ctx); } catch (e) { console.error(e); el.innerHTML = `<p class="error-text">${E(e.message)}</p>`; }
+    } }));
     list.push({ id: "daftar", judul: "Daftar", render: hDaftar });
-    return list.filter((h) => h.ada !== false);
+    return list.filter((h) => h.ada !== false && (!h.id || tampil(h.id)));
   }
   const rute = () => (location.hash.match(/^#\/([\w-]*)/) || [, ""])[1];
   const href = (id) => "#/" + id;
@@ -175,21 +181,22 @@
     const logo = foto(d.logo, "Logo " + b.nama, "bso-logo");
     const prog = (d.program || []).map((p) => Object.assign({ _s: statusProker(p) }, p));
     const next = prog.filter((p) => p._s !== "selesai").sort((x, y) => (tgl(x.mulai) || 0) - (tgl(y.mulai) || 0))[0];
+    const cta = b.cta || (tampil("daftar") ? { teks: ctx.info.pendaftaran_buka ? "Daftar jadi anggota" : "Info pendaftaran", href: "#/daftar" } : null);
     const kartu = halaman().filter((h) => h.id && h.id !== "daftar").map((h) => {
       const sub = { tentang: (d.pengurus || []).length ? `${d.pengurus.length} pengurus` : "Kenalan dengan kami", program: `${prog.length} program`, galeri: `${(d.galeri || []).length} foto`, pengumuman: "Kabar terbaru" }[h.id] || "";
-      return `<a class="bso-quick" href="${href(h.id)}"><b>${E(h.judul)}</b><small>${E(sub)}</small>${FC.icon("arrow")}</a>`;
+      return `<a class="bso-quick" href="${href(h.id)}"><b>${E(h.judul)}</b><small>${E(h.sub || sub)}</small>${FC.icon("arrow")}</a>`;
     }).join("");
     el.innerHTML = `
       <section class="page-hero bso-hero"><div class="wrap bso-hero-grid">
         <div>
           <nav class="crumbs" aria-label="Lokasi"><a href="${ROOT}">BEM FMIPA</a><span>/</span><span>${E(b.nama)}</span></nav>
-          <div class="chips" style="margin-top:18px"><span class="chip">Sub Divisi Departemen ${E(b.departemen)}</span>${ctx.info.pendaftaran_buka ? '<span class="chip ok">Pendaftaran dibuka</span>' : ""}</div>
+          <div class="chips" style="margin-top:18px"><span class="chip">Sub Divisi Departemen ${E(b.departemen)}</span>${ctx.info.pendaftaran_buka && tampil("daftar") ? '<span class="chip ok">Pendaftaran dibuka</span>' : ""}</div>
           <h1>${E(b.nama)}</h1>
           ${d.kepanjangan ? `<p class="bso-kepanjangan">${E(d.kepanjangan)}</p>` : ""}
           ${b.tagline ? `<p class="tagline">${E(b.tagline)}</p>` : ""}
           <p>${E(ctx.deskripsi)}</p>
           <div class="cta">
-            <a class="btn btn-primary" href="#/daftar">${ctx.info.pendaftaran_buka ? "Daftar jadi anggota" : "Info pendaftaran"}</a>
+            ${cta ? `<a class="btn btn-primary" href="${E(cta.href)}">${E(cta.teks)}</a>` : ""}
             <a class="btn btn-ghost" href="#/tentang">Kenalan dulu</a>
           </div>
         </div>
@@ -199,13 +206,14 @@
         <div class="bso-quick-grid">${kartu}</div>
       </div></section>
       <section class="bso-section"><div class="wrap bso-home-split">
-        <div><div class="bso-sec-head"><div><span class="eyebrow">Kabar terbaru</span><h2>Pengumuman</h2></div><a class="hl" href="#/pengumuman">Lihat semua</a></div><div data-ann><div class="skeleton" style="min-height:120px"></div></div></div>
+        ${tampil("pengumuman") ? `<div><div class="bso-sec-head"><div><span class="eyebrow">Kabar terbaru</span><h2>Pengumuman</h2></div><a class="hl" href="#/pengumuman">Lihat semua</a></div><div data-ann><div class="skeleton" style="min-height:120px"></div></div></div>` : ""}
         <div><div class="bso-sec-head"><div><span class="eyebrow">Agenda</span><h2>Kegiatan terdekat</h2></div>${prog.length ? '<a class="hl" href="#/program">Semua program</a>' : ""}</div>
           ${next ? kartuProker(next) : `<div class="empty bso-empty-sm"><p>Belum ada agenda terdekat.</p></div>`}
-          ${kontakHtml(d)}
+          ${tampil("pengumuman") ? kontakHtml(d) : ""}
         </div>
+        ${tampil("pengumuman") ? "" : `<div>${kontakHtml(d)}</div>`}
       </div></section>`;
-    isiPengumuman(el.querySelector("[data-ann]"), { batas: 3 });
+    if (tampil("pengumuman")) isiPengumuman(el.querySelector("[data-ann]"), { batas: 3 });
   }
 
   function kontakHtml(d) {
@@ -425,8 +433,9 @@
         <p>Akses diberikan oleh admin pusat BEM FMIPA. Kalau kamu pengurus ${E(b.nama)}, minta admin pusat menambahkan emailmu.</p>${linkAksesLain()}</div></div></section>`;
       return;
     }
-    const tabs = [["pendaftaran", "Pendaftaran"], ["pengumuman", "Pengumuman"], ["pengaturan", "Pengaturan"]].concat((ext().admin || []).map((t) => [t.id, t.judul]));
-    if (!tabs.find((t) => t[0] === tab)) tab = "pendaftaran";
+    const tabs = [["pendaftaran", "Pendaftaran"], ["pengumuman", "Pengumuman"]].filter(([id]) => tampil(id === "pendaftaran" ? "daftar" : id))
+      .concat((ext().admin || []).map((t) => [t.id, t.judul]), [["pengaturan", "Pengaturan"]]);
+    if (!tabs.find((t) => t[0] === tab)) tab = tabs[0][0];
     app.innerHTML = `<section class="bso-adm"><div class="wrap">
       <div class="head"><div><span class="eyebrow">Panel admin · Departemen ${E(b.departemen)}</span><h1>${E(b.nama)}</h1></div>${linkAksesLain()}</div>
       <div class="tabs" role="tablist">${tabs.map(([id, t]) => `<button class="tab" role="tab" type="button" data-tab="${E(id)}" aria-selected="${id === tab}">${E(t)}</button>`).join("")}</div>
@@ -538,9 +547,9 @@
     const i = ctx.info;
     el.innerHTML = `<form class="form-card form-grid" style="max-width:720px" data-f>
       <div class="field"><label for="s-desk">Deskripsi sub divisi</label><textarea id="s-desk" name="deskripsi">${E(ctx.deskripsi)}</textarea><span class="hint">Tampil di bagian atas halaman publik.</span></div>
-      <label class="check"><input type="checkbox" name="pendaftaran_buka" ${i.pendaftaran_buka ? "checked" : ""}> Pendaftaran anggota dibuka</label>
+      ${tampil("daftar") ? `<label class="check"><input type="checkbox" name="pendaftaran_buka" ${i.pendaftaran_buka ? "checked" : ""}> Pendaftaran anggota dibuka</label>
       <div class="field"><label for="s-info">Info pendaftaran</label><input id="s-info" name="pendaftaran_info" value="${E(i.pendaftaran_info || "")}" placeholder="Contoh: Dibuka 1–14 Maret, wawancara 20 Maret"></div>
-      <p class="hint">Pertanyaan formulir pendaftaran diatur di <code>assets/js/bso-config.js</code>.</p>
+      <p class="hint">Pertanyaan formulir pendaftaran diatur di <code>assets/js/bso-config.js</code>.</p>` : ""}
       <div><button class="btn btn-primary" type="submit">Simpan pengaturan</button></div>
     </form>`;
     const f = el.querySelector("[data-f]");
@@ -575,6 +584,7 @@
     const yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
     D = await FC.ready;
     ctx.D = D;
+    ctx.ui = { judulHal, waLink, kontakHtml: () => kontakHtml(data()), data, contohTag, demo: D.mode === "demo" };
     try { const s = await D.getSettings(); if (s && s.tampilan) FC.applyTheme(s.tampilan.warna, s.tampilan.font); } catch (e) { /* pakai warna bawaan */ }
     await muatKonteks();
     renderAuth();
