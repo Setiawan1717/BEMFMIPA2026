@@ -5,7 +5,9 @@
 
    Halaman publik khusus SE:
      #/unit-usaha  → katalog 3 unit usaha (Beli, Sewa, Cetak) + form pesan. Produk & harga di katalog.js
-     #/member      → daftar member (ormawa/pribadi), kartu & saldo poin, pesanan saya
+     #/member      → info & daftar member (ormawa/pribadi)
+     #/akun        → Akun Saya: saldo poin + tombol Tukar poin, ubah data diri, pesanan, riwayat poin
+     #/tukar-poin  → katalog barang sewa dengan harga dalam poin (tidak tampil di menu)
    Tab panel admin khusus SE:
      Pesanan → tandai lunas (poin cashback 10% otomatis) atau batalkan
      Member  → tandai kartu lunas (aktif + 15.000 poin), tolak, sesuaikan poin
@@ -96,9 +98,12 @@
     });
   }
 
-  async function formPesan(ctx, u, p) {
-    const sewa = !!u.tukarPoin;
-    const kepala = `<span class="eyebrow">${E(u.nama)}</span><h2>${E(p.nama)}</h2><p class="lede">${rp(p.harga)} / ${E(p.satuan || "pcs")}</p>`;
+  // opt.tukar = true → form Tukar Poin (selalu bayar pakai poin, khusus member aktif)
+  async function formPesan(ctx, u, p, opt) {
+    const sewa = !!u.tukarPoin, tukar = !!(opt && opt.tukar);
+    const kepala = tukar
+      ? `<span class="eyebrow">Tukar poin · ${E(u.nama)}</span><h2>${E(p.nama)}</h2><p class="lede">${poin(p.harga)} poin / ${E(p.satuan || "hari")}</p>`
+      : `<span class="eyebrow">${E(u.nama)}</span><h2>${E(p.nama)}</h2><p class="lede">${rp(p.harga)} / ${E(p.satuan || "pcs")}</p>`;
     if (!ctx.user) {
       FC.openModal(`${kepala}<div class="empty" style="margin-top:18px"><h3>Masuk dulu, ya</h3><p>Pesanan dan poin SE tercatat di akun FMIPA Connect-mu.</p>
         <button class="btn btn-primary" style="margin-top:16px" type="button" data-masuk>Masuk</button></div>`, { label: "Pesan " + p.nama });
@@ -108,17 +113,21 @@
     const isi = d.querySelector("[data-isi]");
     const m = await api(ctx).memberSaya().catch(() => null);
     const aktif = m && m.status === "aktif";
+    if (tukar && !aktif) {
+      isi.innerHTML = `<div class="empty" style="margin-top:18px"><h3>Khusus member aktif</h3><p>Tukar poin hanya untuk member SE yang kartunya sudah aktif.</p><a class="btn btn-primary" style="margin-top:16px" href="#/member">Lihat cara jadi member</a></div>`;
+      return;
+    }
     isi.innerHTML = `<form class="form-grid" style="margin-top:18px" data-f novalidate>
         <div class="field"><label for="se-jml">${sewa ? "Lama sewa (hari)" : "Jumlah (" + E(p.satuan || "pcs") + ")"}</label><input id="se-jml" name="jumlah" type="number" min="1" max="10000" value="1" inputmode="numeric"></div>
         <div class="field"><label for="se-tgl">${sewa ? "Tanggal mulai sewa" : "Dibutuhkan tanggal (opsional)"}</label><input id="se-tgl" name="tanggal" type="date"></div>
-        ${sewa ? `<fieldset class="field se-bayar"><legend>Bayar dengan</legend>
+        ${tukar ? `<input type="hidden" name="bayar" value="poin"><p class="muted">Saldo kamu: <b>${poin(m.saldo)} poin</b></p>` : sewa ? `<fieldset class="field se-bayar"><legend>Bayar dengan</legend>
             <label class="check"><input type="radio" name="bayar" value="uang" checked> Uang</label>
             <label class="check"><input type="radio" name="bayar" value="poin" ${aktif ? "" : "disabled"}> Poin SE ${aktif ? `(saldo ${poin(m.saldo)})` : "(khusus member aktif)"}</label></fieldset>` : ""}
         <div class="field"><label for="se-cat">Catatan (opsional)</label><textarea id="se-cat" name="catatan" placeholder="Contoh: nama acara, warna, ukuran, atau desain."></textarea></div>
         <div class="se-ringkas" data-ringkas aria-live="polite"></div>
         <p class="error-text" data-err hidden></p>
-        <div class="modal-actions"><button class="btn btn-primary" type="submit">Kirim pesanan</button><button class="btn btn-ghost" type="button" data-close>Batal</button></div>
-        <p class="muted" style="font-size:.82rem">Admin SE akan menghubungimu lewat WhatsApp untuk pembayaran. ${aktif ? "Poin cashback masuk ke kartu member-mu setelah pesanan lunas." : `Poin cashback hanya untuk <a class="hl" href="#/member">member SE</a>.`}</p>
+        <div class="modal-actions"><button class="btn btn-primary" type="submit">${tukar ? "Tukar poin" : "Kirim pesanan"}</button><button class="btn btn-ghost" type="button" data-close>Batal</button></div>
+        <p class="muted" style="font-size:.82rem">${tukar ? "Poin baru dipotong setelah admin SE mengonfirmasi penukaran." : `Admin SE akan menghubungimu lewat WhatsApp untuk pembayaran. ${aktif ? "Poin cashback masuk ke kartu member-mu setelah pesanan lunas." : `Poin cashback hanya untuk <a class="hl" href="#/member">member SE</a>.`}`}</p>
       </form>`;
     const f = isi.querySelector("[data-f]"), ring = isi.querySelector("[data-ringkas]");
     const hitung = () => {
@@ -140,9 +149,9 @@
       try {
         const ps = await FC.busy(f.querySelector("[type=submit]"), () => api(ctx).kirimPesanan({ unit: u.id, produk: p.nama, harga: p.harga, jumlah: n, satuan: p.satuan, bayar: pakaiPoin ? "poin" : "uang", tanggal: v.tanggal, catatan: v.catatan }));
         const wa = waAdmin(ctx, `Halo admin Science Entrepreneur, saya baru memesan ${p.nama} (${n} ${p.satuan || "pcs"}) lewat situs SE, total ${pakaiPoin ? poin(total) + " poin" : rp(total)}. Nama: ${(ctx.profil && ctx.profil.nama) || ""}`);
-        isi.innerHTML = `<div class="empty" style="margin-top:18px"><h3>Pesanan terkirim</h3>
-          <p>${pakaiPoin ? `Admin SE akan mengonfirmasi penukaran ${poin(ps.total)} poin.` : `Total ${rp(ps.total)}. Admin SE akan menghubungimu untuk pembayaran.`} Pantau statusnya di halaman Member.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px"><a class="btn btn-primary" href="#/member">Lihat pesanan saya</a>${wa ? `<a class="btn btn-ghost" href="${E(wa)}" target="_blank" rel="noopener">${FC.icon("chat")} Kabari admin</a>` : ""}</div></div>`;
+        isi.innerHTML = `<div class="empty" style="margin-top:18px"><h3>${pakaiPoin ? "Penukaran poin terkirim" : "Pesanan terkirim"}</h3>
+          <p>${pakaiPoin ? `Admin SE akan mengonfirmasi penukaran ${poin(ps.total)} poin.` : `Total ${rp(ps.total)}. Admin SE akan menghubungimu untuk pembayaran.`} Pantau statusnya di halaman Akun Saya.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px"><a class="btn btn-primary" href="#/akun">Lihat pesanan saya</a>${wa ? `<a class="btn btn-ghost" href="${E(wa)}" target="_blank" rel="noopener">${FC.icon("chat")} Kabari admin</a>` : ""}</div></div>`;
       } catch (x) { err.textContent = x.message; err.hidden = false; }
     });
   }
@@ -166,13 +175,8 @@
   }
 
   async function isiMember(el, ctx) {
-    let m = null, pesanan = [], riwayat = [];
-    try {
-      if (ctx.user) {
-        [m, pesanan] = await Promise.all([api(ctx).memberSaya(), api(ctx).pesananSaya()]);
-        if (m && m.status === "aktif") riwayat = await api(ctx).riwayatPoin(m.id);
-      }
-    } catch (e) { el.innerHTML = `<section class="bso-section"><div class="wrap"><p class="error-text">${E(e.message)}</p></div></section>`; return; }
+    let m = null;
+    try { if (ctx.user) m = await api(ctx).memberSaya(); } catch (e) { el.innerHTML = `<section class="bso-section"><div class="wrap"><p class="error-text">${E(e.message)}</p></div></section>`; return; }
     const ulang = () => isiMember(el, ctx);
 
     const aturan = `<ul class="se-poin-list">
@@ -188,7 +192,7 @@
         <span class="eyebrow">Kartu member-mu</span>
         <h2 style="margin:10px 0 6px">${poin(m.saldo)} poin</h2>
         <p class="muted" style="margin-bottom:16px">${E(namaMember(m))} · ${E(m.kode || "")} · setara ${rp(m.saldo)} untuk sewa.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px"><a class="btn btn-primary btn-sm" href="#/unit-usaha/sewa">Tukar poin untuk sewa</a><a class="btn btn-ghost btn-sm" href="#/unit-usaha">Belanja &amp; kumpulkan poin</a></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px"><a class="btn btn-primary btn-sm" href="#/tukar-poin">Tukar poin</a><a class="btn btn-ghost btn-sm" href="#/akun">Buka Akun Saya</a></div>
         ${aturan}</div></div>`;
     } else if (m && m.status === "menunggu") {
       const wa = waAdmin(ctx, `Halo admin Science Entrepreneur, saya sudah daftar member SE (${TIPE[m.tipe].judul}${m.nama_ormawa ? ": " + m.nama_ormawa : ""}) atas nama ${m.nama}. Saya ingin membayar kartu member ${rp(K.KARTU.harga)}.`);
@@ -213,19 +217,7 @@
         <p class="muted se-catatan">Satu akun FMIPA Connect hanya bisa punya satu kartu member. Untuk ormawa, daftarkan dengan akun penanggung jawab (misalnya bendahara).</p>
       </div></section>` : "";
 
-    const daftarPesanan = ctx.user ? `<section class="bso-section"><div class="wrap">
-        <div class="bso-sec-head"><div><span class="eyebrow">Akun SE</span><h2>Pesanan saya</h2></div><a class="hl" href="#/unit-usaha">Pesan lagi</a></div>
-        ${pesanan.length ? `<div class="adm-rows">${pesanan.map((p) => `<div class="adm-row"><div class="top"><h3>${E(p.produk)} · ${E(p.jumlah)} ${E(p.satuan || "")}</h3>${chip(ST_PESANAN, p.status)}</div>
-          <div class="sub">${E((UNIT[p.unit] || {}).singkat || p.unit)} · ${p.bayar === "poin" ? `${poin(p.total)} poin` : rp(p.total)}${p.status === "lunas" && p.poin_cashback ? ` · <b class="se-plus">+${poin(p.poin_cashback)} poin</b>` : ""} · ${E(FC.fmtDateTime(p.created_at))}</div>
-          ${p.pesan_admin ? `<p class="muted" style="font-size:.88rem">Pesan admin: ${E(p.pesan_admin)}</p>` : ""}
-          ${p.status === "menunggu" ? `<div class="acts"><button class="btn btn-danger btn-sm" type="button" data-batal-pesanan="${E(p.id)}">Batalkan</button></div>` : ""}</div>`).join("")}</div>`
-          : `<div class="empty bso-empty-sm"><p>Belum ada pesanan.</p></div>`}
-      </div></section>` : "";
-
-    const riwayatHtml = m && m.status === "aktif" ? `<section class="bso-section"><div class="wrap">
-        <span class="eyebrow">Riwayat poin</span><h2>Mutasi poin SE</h2><div style="max-width:760px">${tabelRiwayat(riwayat)}</div></div></section>` : "";
-
-    el.innerHTML = `<section class="bso-section"><div class="wrap">${atas}</div></section>${pilihTipe}${daftarPesanan}${riwayatHtml}`;
+    el.innerHTML = `<section class="bso-section"><div class="wrap">${atas}</div></section>${pilihTipe}`;
 
     el.querySelectorAll("[data-daftar-member]").forEach((b) => b.onclick = () => formMember(ctx, b.dataset.daftarMember, ulang));
     el.querySelectorAll("[data-batal-member]").forEach((b) => b.onclick = async () => {
@@ -233,15 +225,116 @@
       if (!ditolak && !(await FC.confirm("Batalkan pendaftaran member?", "Data pendaftaranmu dihapus. Kamu bisa mendaftar lagi kapan saja.", "Batalkan"))) return;
       try { await api(ctx).batalMember(m.id); FC.toast(ditolak ? "Silakan daftar ulang." : "Pendaftaran dibatalkan."); ulang(); } catch (e) { FC.toast(e.message, "err"); }
     });
+  }
+
+  function tabelRiwayat(rows) {
+    if (!rows.length) return `<div class="empty bso-empty-sm"><p>Belum ada mutasi poin.</p></div>`;
+    return `<ul class="se-mutasi">${rows.map((r) => `<li><div><b>${E(r.keterangan)}</b><small>${E(FC.fmtDateTime(r.created_at))}</small></div><span class="${r.jumlah < 0 ? "min" : "plus"}">${r.jumlah > 0 ? "+" : ""}${poin(r.jumlah)}</span></li>`).join("")}</ul>`;
+  }
+
+  /* =================================================================
+     AKUN SAYA (#/akun): saldo poin, tombol tukar, data pribadi, pesanan, riwayat
+     ================================================================= */
+  function perluMasuk(judul) {
+    return `<section class="bso-section"><div class="wrap" style="max-width:560px"><div class="empty"><h3>Masuk dulu, ya</h3>
+      <p>${E(judul)} memakai akun FMIPA Connect yang sama.</p><button class="btn btn-primary" style="margin-top:16px" type="button" data-masuk>Masuk</button></div></div></section>`;
+  }
+
+  function hAkun(el, ctx) {
+    el.innerHTML = ctx.ui.judulHal("Akun SE", "Akun Saya", "Lihat saldo poin, tukar poin, ubah data diri, dan pantau pesananmu.") + `<div data-akun>${ctx.user ? `<section class="bso-section"><div class="wrap"><div class="skeleton" style="min-height:220px"></div></div></section>` : perluMasuk("Akun SE")}</div>`;
+    if (ctx.user) isiAkun(el.querySelector("[data-akun]"), ctx);
+  }
+
+  async function isiAkun(el, ctx) {
+    let m, pesanan, riwayat = [];
+    try {
+      [m, pesanan] = await Promise.all([api(ctx).memberSaya(), api(ctx).pesananSaya()]);
+      if (m && m.status === "aktif") riwayat = await api(ctx).riwayatPoin(m.id);
+    } catch (e) { el.innerHTML = `<section class="bso-section"><div class="wrap"><p class="error-text">${E(e.message)}</p></div></section>`; return; }
+    const ulang = () => isiAkun(el, ctx);
+    const aktif = m && m.status === "aktif", pr = ctx.profil || {};
+
+    const saldo = aktif
+      ? `<div class="se-saldo">${kartuMember(m)}
+          <div class="se-saldo-info"><small>Saldo poin SE</small><b>${poin(m.saldo)} poin</b><span class="muted">Setara ${rp(m.saldo)} untuk sewa perlengkapan.</span></div>
+          <a class="btn btn-primary btn-block" href="#/tukar-poin">${FC.icon("wallet")} Tukar poin</a></div>`
+      : `<div class="se-saldo"><div class="form-card status-card"><span class="eyebrow">Poin SE</span>
+          ${m ? chip(ST_MEMBER, m.status) : ""}
+          <h3>${m && m.status === "menunggu" ? `Kartu belum aktif` : "Belum jadi member"}</h3>
+          <p class="muted">${m && m.status === "menunggu" ? `Bayar kartu ${rp(K.KARTU.harga)} ke admin SE. Setelah aktif, saldo langsung ${poin(K.KARTU.poinAwal)} poin dan tombol Tukar poin muncul di sini.` : `Jadi member SE untuk mengumpulkan poin dari setiap pesanan dan menukarnya dengan sewa perlengkapan.`}</p>
+          <a class="btn btn-primary btn-sm" style="justify-self:start" href="#/member">${m ? "Lihat status member" : "Daftar member"}</a></div></div>`;
+
+    const dataDiri = `<form class="form-card form-grid" data-f-diri novalidate>
+        <h3 class="form-section-title">Data pribadi</h3>
+        <dl class="profil-box"><dt>Email</dt><dd>${E(ctx.user.email || "-")}</dd>${m ? `<dt>Jenis akun</dt><dd>${E(TIPE[m.tipe].judul)}</dd>` : ""}${m && m.kode ? `<dt>Kode kartu</dt><dd>${E(m.kode)}</dd>` : ""}<dt>NIM</dt><dd>${E(pr.nim || "-")}</dd><dt>Prodi</dt><dd>${E(pr.prodi || pr.departemen || "-")}</dd></dl>
+        ${m ? `${m.tipe === "ormawa" ? `<div class="field"><label for="ak-org">Nama ormawa <span class="req">*</span></label><input id="ak-org" name="nama_ormawa" value="${E(m.nama_ormawa || "")}" required></div>` : ""}
+          <div class="field"><label for="ak-nama">${m.tipe === "ormawa" ? "Nama penanggung jawab" : "Nama lengkap"} <span class="req">*</span></label><input id="ak-nama" name="nama" value="${E(m.nama)}" required></div>
+          <div class="field"><label for="ak-wa">Nomor WhatsApp <span class="req">*</span></label><input id="ak-wa" name="whatsapp" type="tel" inputmode="tel" value="${E(m.whatsapp)}" required><span class="hint">Nomor ini dipakai admin SE untuk menghubungimu soal pesanan.</span></div>
+          <p class="error-text" data-err hidden></p>
+          <div><button class="btn btn-primary" type="submit">Simpan data</button></div>`
+          : `<dl class="profil-box"><dt>Nama</dt><dd>${E(pr.nama || "-")}</dd><dt>WhatsApp</dt><dd>${E(pr.whatsapp || "-")}</dd></dl>`}
+        <p class="muted" style="font-size:.84rem">NIM, prodi, dan data akun lainnya diubah di <a class="hl" href="${E(ctx.root)}index.html#/profil">profil FMIPA Connect</a>.</p>
+      </form>`;
+
+    const daftarPesanan = `<section class="bso-section"><div class="wrap">
+        <div class="bso-sec-head"><div><span class="eyebrow">Pesanan</span><h2>Pesanan saya</h2></div><a class="hl" href="#/unit-usaha">Pesan lagi</a></div>
+        ${pesanan.length ? `<div class="adm-rows">${pesanan.map((p) => `<div class="adm-row"><div class="top"><h3>${E(p.produk)} · ${E(p.jumlah)} ${E(p.satuan || "")}</h3>${p.bayar === "poin" && p.status === "menunggu" ? '<span class="chip warn">Menunggu konfirmasi</span>' : chip(ST_PESANAN, p.status)}</div>
+          <div class="sub">${p.bayar === "poin" ? "Tukar poin" : E((UNIT[p.unit] || {}).singkat || p.unit)} · ${p.bayar === "poin" ? `${poin(p.total)} poin` : rp(p.total)}${p.status === "lunas" && p.poin_cashback ? ` · <b class="se-plus">+${poin(p.poin_cashback)} poin</b>` : ""} · ${E(FC.fmtDateTime(p.created_at))}</div>
+          ${p.pesan_admin ? `<p class="muted" style="font-size:.88rem">Pesan admin: ${E(p.pesan_admin)}</p>` : ""}
+          ${p.status === "menunggu" ? `<div class="acts"><button class="btn btn-danger btn-sm" type="button" data-batal-pesanan="${E(p.id)}">Batalkan</button></div>` : ""}</div>`).join("")}</div>`
+          : `<div class="empty bso-empty-sm"><p>Belum ada pesanan.</p></div>`}
+      </div></section>`;
+
+    const riwayatHtml = aktif ? `<section class="bso-section"><div class="wrap">
+        <span class="eyebrow">Riwayat poin</span><h2>Mutasi poin SE</h2><div style="max-width:760px">${tabelRiwayat(riwayat)}</div></div></section>` : "";
+
+    el.innerHTML = `<section class="bso-section"><div class="wrap se-akun-grid">${saldo}${dataDiri}</div></section>${daftarPesanan}${riwayatHtml}`;
+
+    const f = el.querySelector("[data-f-diri]");
+    if (m) f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const v = FC.formData(f), err = f.querySelector("[data-err]");
+      err.hidden = true;
+      if (!v.nama || !v.whatsapp || (m.tipe === "ormawa" && !v.nama_ormawa)) { err.textContent = "Lengkapi semua isian bertanda *."; err.hidden = false; return; }
+      try { await FC.busy(f.querySelector("[type=submit]"), () => api(ctx).ubahMember(m.id, v)); FC.toast("Data tersimpan."); ulang(); }
+      catch (x) { err.textContent = x.message; err.hidden = false; }
+    });
     el.querySelectorAll("[data-batal-pesanan]").forEach((b) => b.onclick = async () => {
       if (!(await FC.confirm("Batalkan pesanan?", "Pesanan ini dihapus.", "Batalkan"))) return;
       try { await api(ctx).batalPesanan(b.dataset.batalPesanan); FC.toast("Pesanan dibatalkan."); ulang(); } catch (e) { FC.toast(e.message, "err"); }
     });
   }
 
-  function tabelRiwayat(rows) {
-    if (!rows.length) return `<div class="empty bso-empty-sm"><p>Belum ada mutasi poin.</p></div>`;
-    return `<ul class="se-mutasi">${rows.map((r) => `<li><div><b>${E(r.keterangan)}</b><small>${E(FC.fmtDateTime(r.created_at))}</small></div><span class="${r.jumlah < 0 ? "min" : "plus"}">${r.jumlah > 0 ? "+" : ""}${poin(r.jumlah)}</span></li>`).join("")}</ul>`;
+  /* =================================================================
+     TUKAR POIN (#/tukar-poin): katalog sewa dengan harga dalam poin
+     ================================================================= */
+  async function hTukarPoin(el, ctx) {
+    const unitSewa = (K.unit || []).filter((u) => u.tukarPoin);
+    el.innerHTML = ctx.ui.judulHal("Tukar poin", "Tukar Poin", "Pakai poin SE-mu untuk menyewa perlengkapan acara. 1 poin = Rp1.") + `
+      <section class="bso-section"><div class="wrap"><div data-saldo><div class="skeleton" style="min-height:84px"></div></div><div data-grid style="margin-top:26px"></div></div></section>`;
+    let m = null;
+    if (ctx.user) m = await api(ctx).memberSaya().catch(() => null);
+    const aktif = m && m.status === "aktif", saldo = aktif ? m.saldo : 0;
+    el.querySelector("[data-saldo]").innerHTML = aktif
+      ? `<div class="se-saldo-bar"><div><small>Saldo poin kamu</small><b>${poin(saldo)} poin</b></div><a class="btn btn-ghost btn-sm" href="#/akun">Riwayat poin</a></div>`
+      : `<div class="se-saldo-bar"><div><small>${ctx.user ? (m ? "Kartu member belum aktif" : "Kamu belum jadi member SE") : "Belum masuk"}</small><b>Tukar poin khusus member aktif</b></div>
+          ${ctx.user ? `<a class="btn btn-primary btn-sm" href="#/member">${m ? "Lihat status member" : "Daftar member"}</a>` : `<button class="btn btn-primary btn-sm" type="button" data-masuk>Masuk</button>`}</div>`;
+    el.querySelector("[data-grid]").innerHTML = unitSewa.length ? unitSewa.map((u) => `
+      <div class="se-unit-head"><h2>${E(u.nama)}</h2><p class="muted">Harga ditulis dalam poin per ${E((u.produk[0] || {}).satuan || "hari")}.</p></div>
+      <div class="se-produk-grid">${u.produk.map((p, i) => {
+        const kurang = p.harga - saldo;
+        return `<article class="se-produk">
+          <div class="se-produk-top"><span class="se-ikon" aria-hidden="true">${FC.icon(u.ikon)}</span>${aktif ? (kurang > 0 ? `<span class="chip gray">Kurang ${poin(kurang)}</span>` : `<span class="chip ok">Poin cukup</span>`) : ""}</div>
+          <h3>${E(p.nama)}</h3>${p.ket ? `<p>${E(p.ket)}</p>` : ""}
+          <div class="se-harga"><b>${poin(p.harga)} poin</b><small>/ ${E(p.satuan || "hari")}</small></div>
+          <p class="se-tukar">Setara ${rp(p.harga)}</p>
+          <button class="btn btn-primary btn-sm" type="button" data-tukar="${E(u.id)}:${i}" ${aktif && kurang > 0 ? "disabled" : ""}>Tukar</button>
+        </article>`;
+      }).join("")}</div>`).join("") : `<div class="empty bso-empty-sm"><p>Belum ada barang persewaan.</p></div>`;
+    el.querySelectorAll("[data-tukar]").forEach((b) => b.onclick = () => {
+      const [uid, i] = b.dataset.tukar.split(":");
+      formPesan(ctx, UNIT[uid], UNIT[uid].produk[+i], { tukar: true });
+    });
   }
 
   function formMember(ctx, tipe, done) {
@@ -390,7 +483,9 @@
   FC.bsoExt = {
     publik: [
       { id: "unit-usaha", judul: "Unit Usaha", sub: `${(K.unit || []).length} unit · cashback ${persen}% poin`, penuh: true, render: hUnitUsaha },
-      { id: "member", judul: "Member", sub: "Kartu member & poin SE", penuh: true, render: hMember }
+      { id: "member", judul: "Member", sub: "Kartu member & poin SE", penuh: true, render: hMember },
+      { id: "akun", judul: "Akun Saya", sub: "Saldo poin, data diri, pesanan", penuh: true, render: hAkun },
+      { id: "tukar-poin", judul: "Tukar Poin", menu: false, penuh: true, render: hTukarPoin }
     ],
     admin: [
       { id: "pesanan", judul: "Pesanan", render: admPesanan },

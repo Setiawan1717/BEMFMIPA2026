@@ -124,7 +124,8 @@
       { id: "pengumuman", judul: "Pengumuman", render: hPengumuman },
     ];
     // s.penuh = true → bagian khusus menggambar seluruh halaman sendiri (boleh pakai ctx.ui.judulHal)
-    (ext().publik || []).forEach((s) => list.push({ id: s.id, judul: s.judul, sub: s.sub, render: (el) => {
+    // s.menu = false → halaman tidak tampil di menu & kartu Beranda (tetap bisa dibuka lewat #/id)
+    (ext().publik || []).forEach((s) => list.push({ id: s.id, judul: s.judul, sub: s.sub, menu: s.menu, render: (el) => {
       if (!s.penuh) el.innerHTML = `<section class="bso-page"><div class="wrap" data-ext></div></section>`;
       try { s.render(s.penuh ? el : el.querySelector("[data-ext]"), ctx); } catch (e) { console.error(e); el.innerHTML = `<p class="error-text">${E(e.message)}</p>`; }
     } }));
@@ -155,7 +156,7 @@
     let id = rute();
     let h = list.find((x) => x.id === id);
     if (!h) { h = list[0]; id = ""; }
-    pasangNav(list, id);
+    pasangNav(list.filter((x) => x.menu !== false), id);
     document.title = `${h.id ? h.judul + " · " : ""}${ctx.bso.nama} · by ${ctx.bso.departemen} BEM FMIPA`;
     app.innerHTML = "";
     h.render(app);
@@ -182,7 +183,7 @@
     const prog = (d.program || []).map((p) => Object.assign({ _s: statusProker(p) }, p));
     const next = prog.filter((p) => p._s !== "selesai").sort((x, y) => (tgl(x.mulai) || 0) - (tgl(y.mulai) || 0))[0];
     const cta = b.cta || (tampil("daftar") ? { teks: ctx.info.pendaftaran_buka ? "Daftar jadi anggota" : "Info pendaftaran", href: "#/daftar" } : null);
-    const kartu = halaman().filter((h) => h.id && h.id !== "daftar").map((h) => {
+    const kartu = halaman().filter((h) => h.id && h.id !== "daftar" && h.menu !== false).map((h) => {
       const sub = { tentang: (d.pengurus || []).length ? `${d.pengurus.length} pengurus` : "Kenalan dengan kami", program: `${prog.length} program`, galeri: `${(d.galeri || []).length} foto`, pengumuman: "Kabar terbaru" }[h.id] || "";
       return `<a class="bso-quick" href="${href(h.id)}"><b>${E(h.judul)}</b><small>${E(h.sub || sub)}</small>${FC.icon("arrow")}</a>`;
     }).join("");

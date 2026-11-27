@@ -36,6 +36,12 @@
           kode: null, status: "menunggu", saldo: 0, catatan: null, created_at: now(), aktif_at: null };
         db().member.push(m); save(); return wait(m);
       },
+      async ubahMember(id, v) {
+        const m = db().member.find((x) => x.id === id);
+        if (!m || m.user_id !== me()) throw new Error("Tidak diizinkan.");
+        if (!v.nama || !v.whatsapp || (m.tipe === "ormawa" && !v.nama_ormawa)) throw new Error("Lengkapi semua isian bertanda *.");
+        Object.assign(m, { nama: v.nama, whatsapp: v.whatsapp }, m.tipe === "ormawa" ? { nama_ormawa: v.nama_ormawa } : {}); save(); return wait(m);
+      },
       async batalMember(id) {
         const m = db().member.find((x) => x.id === id);
         if (!m || (m.user_id !== me() && !ctx.admin) || (m.status === "aktif" && !ctx.admin)) throw new Error("Tidak diizinkan.");
@@ -118,6 +124,10 @@
         const row = { tipe: v.tipe, nama_ormawa: v.tipe === "ormawa" ? v.nama_ormawa : null, nama: v.nama, whatsapp: v.whatsapp };
         try { return ok(await sb.from(T.m).insert(row).select().single()); }
         catch (e) { if (/duplicate|unique/i.test(e.message)) throw new Error("Kamu sudah terdaftar sebagai member SE."); throw e; }
+      },
+      async ubahMember(id, v) {
+        const row = { nama: v.nama, whatsapp: v.whatsapp }; if (v.nama_ormawa !== undefined) row.nama_ormawa = v.nama_ormawa;
+        return ok(await sb.from(T.m).update(row).eq("id", id).select().single());
       },
       async batalMember(id) { ok(await sb.from(T.m).delete().eq("id", id)); },
       async riwayatPoin(memberId) { return ok(await sb.from(T.r).select("*").eq("member_id", memberId).order("id", { ascending: false }).limit(100)); },

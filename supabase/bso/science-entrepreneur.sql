@@ -40,8 +40,13 @@ create policy "se member daftar" on public.science_entrepreneur_member
 drop policy if exists "se member batal" on public.science_entrepreneur_member;
 create policy "se member batal" on public.science_entrepreneur_member
   for delete using ((user_id = auth.uid() and status <> 'aktif') or public.is_admin_bso('science-entrepreneur'));
--- Tidak ada UPDATE langsung: status & saldo hanya lewat fungsi admin
+-- Status & saldo hanya lewat fungsi admin. Member hanya boleh mengubah data dirinya
+-- (nama, WhatsApp, nama ormawa) dari halaman Akun Saya.
 revoke update on public.science_entrepreneur_member from authenticated, anon;
+grant  update (nama, whatsapp, nama_ormawa) on public.science_entrepreneur_member to authenticated;
+drop policy if exists "se member ubah data" on public.science_entrepreneur_member;
+create policy "se member ubah data" on public.science_entrepreneur_member
+  for update using (user_id = auth.uid()) with check (user_id = auth.uid());
 
 create or replace function public.science_entrepreneur_member_isi()
 returns trigger language plpgsql security definer set search_path = public as $$
