@@ -17,8 +17,8 @@ window.FC_BSO = {
       slug: "science-entrepreneur",
       nama: "Science Entrepreneur",
       departemen: "Hubeks",
-      tagline: "[Ganti dengan tagline Science Entrepreneur]",
-      deskripsi: "[Ganti dengan deskripsi singkat Science Entrepreneur: tujuan, kegiatan utama, siapa yang bisa bergabung.]",
+      tagline: "Sains yang berdaya guna, ide yang bernilai usaha.",
+      deskripsi: "Science Entrepreneur adalah Badan Semi Otonom Departemen Hubeks BEM FMIPA UM yang mewadahi mahasiswa FMIPA untuk mengembangkan jiwa wirausaha berbasis sains, dari ide hingga menjadi produk.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "ide_usaha", label: "Ide usaha berbasis sains yang ingin kamu kembangkan (opsional)", type: "textarea" }
@@ -28,8 +28,8 @@ window.FC_BSO = {
       slug: "kharisma",
       nama: "Kharisma",
       departemen: "Kesma",
-      tagline: "[Ganti dengan tagline Kharisma]",
-      deskripsi: "[Ganti dengan deskripsi singkat Kharisma.]",
+      tagline: "",
+      deskripsi: "Kharisma adalah Badan Semi Otonom di bawah Departemen Kesma BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk berkegiatan, berkembang, dan berkontribusi bersama.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
@@ -38,8 +38,8 @@ window.FC_BSO = {
       slug: "komipa",
       nama: "KOMIPA",
       departemen: "Seniora",
-      tagline: "[Ganti dengan tagline KOMIPA]",
-      deskripsi: "[Ganti dengan deskripsi singkat KOMIPA.]",
+      tagline: "",
+      deskripsi: "KOMIPA adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk menyalurkan minat, berkarya, dan berprestasi.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "portofolio", label: "Link portofolio (opsional)", type: "url" }
@@ -49,8 +49,8 @@ window.FC_BSO = {
       slug: "gsc5",
       nama: "GSC-5",
       departemen: "Seniora",
-      tagline: "[Ganti dengan tagline GSC-5]",
-      deskripsi: "[Ganti dengan deskripsi singkat GSC-5.]",
+      tagline: "",
+      deskripsi: "GSC-5 adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk menyalurkan minat, berlatih, dan berprestasi.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
@@ -59,8 +59,8 @@ window.FC_BSO = {
       slug: "aswa",
       nama: "Aswa",
       departemen: "Seniora",
-      tagline: "[Ganti dengan tagline Aswa]",
-      deskripsi: "[Ganti dengan deskripsi singkat Aswa.]",
+      tagline: "",
+      deskripsi: "Aswa adalah Badan Semi Otonom di bawah Departemen Seniora BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk menyalurkan minat, berkarya, dan berprestasi.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
@@ -69,8 +69,8 @@ window.FC_BSO = {
       slug: "fs2t",
       nama: "FS2T",
       departemen: "Riskel",
-      tagline: "[Ganti dengan tagline FS2T]",
-      deskripsi: "[Ganti dengan deskripsi singkat FS2T.]",
+      tagline: "",
+      deskripsi: "FS2T adalah Badan Semi Otonom di bawah Departemen Riskel BEM FMIPA UM yang menjadi wadah bagi mahasiswa FMIPA untuk berkembang di bidang riset dan keilmuan.",
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "minat_riset", label: "Bidang riset yang kamu minati", type: "text" }

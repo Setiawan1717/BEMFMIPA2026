@@ -23,18 +23,19 @@
 
   FC.bsoExt = {
     publik: [
-      {
-        id: "tentang",
-        judul: "Tentang",
-        render(el, ctx) {
-          el.innerHTML = `
-            <span class="eyebrow">Tentang kami <span class="contoh-tag">CONTOH</span></span>
-            <h2>Kenalan dengan ${E(ctx.bso.nama)}</h2>
-            <p class="muted" style="max-width:680px">Bagian ini contoh mekanisme khusus. Ganti isinya di
-            <code>${E(ctx.slug)}/app.js</code>: misalnya struktur pengurus, galeri karya, jadwal latihan,
-            voting, absensi, atau formulir lomba.</p>`;
-        }
-      }
+      // Contoh bagian tambahan (hapus tanda // untuk mencoba):
+      // {
+      //   id: "tentang",
+      //   judul: "Tentang",
+      //   render(el, ctx) {
+      //     el.innerHTML = `
+      //       <span class="eyebrow">Tentang kami <span class="contoh-tag">CONTOH</span></span>
+      //       <h2>Kenalan dengan ${E(ctx.bso.nama)}</h2>
+      //       <p class="muted" style="max-width:680px">Bagian ini contoh mekanisme khusus. Ganti isinya di
+      //       <code>${E(ctx.slug)}/app.js</code>: misalnya struktur pengurus, galeri karya, jadwal latihan,
+      //       voting, absensi, atau formulir lomba.</p>`;
+      //   }
+      // }
     ],
 
     admin: [
