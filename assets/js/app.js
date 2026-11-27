@@ -59,20 +59,13 @@
     $$("[data-logout]").forEach((b) => b.onclick = async (e) => { e.preventDefault(); await D.signOut(); await refreshAuth(); FC.toast("Kamu sudah keluar."); go("#/"); });
   }
 
-  /* mega-menu "Bagian Kami": tab departemen di kiri menyaring grid BSO di kanan */
+  /* mega-menu "Bagian Kami": buka/tutup lewat klik (selain hover) */
   (function megaMenu() {
     const m = document.querySelector("[data-mega]"); if (!m) return;
-    const pilih = (tab) => {
-      m.querySelectorAll("[data-mega-tab]").forEach((t) => t.setAttribute("aria-pressed", t === tab));
-      const d = tab.dataset.megaTab;
-      m.querySelectorAll(".mega-grid [data-dept]").forEach((a) => { a.hidden = !!d && a.dataset.dept !== d; });
-      m.querySelector(".mega-grid").classList.toggle("filtered", !!d);
-    };
-    m.querySelectorAll("[data-mega-tab]").forEach((t) => { t.addEventListener("mouseenter", () => pilih(t)); t.addEventListener("click", () => pilih(t)); t.addEventListener("focus", () => pilih(t)); });
     m.querySelector(":scope > button").addEventListener("click", () => m.classList.toggle("open"));
     document.addEventListener("click", (e) => { if (!m.contains(e.target)) m.classList.remove("open"); });
     m.addEventListener("click", (e) => { if (e.target.closest("a")) { m.classList.remove("open"); document.activeElement.blur(); } });
-    m.addEventListener("mouseleave", () => { m.classList.remove("open"); const semua = m.querySelector('[data-mega-tab=""]'); if (semua) pilih(semua); });
+    m.addEventListener("mouseleave", () => m.classList.remove("open"));
   })();
 
   function setActiveNav(path) {

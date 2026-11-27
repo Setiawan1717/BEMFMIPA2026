@@ -1,6 +1,6 @@
 /* =====================================================================
-   FMIPA Connect — mesin halaman BSO (dipakai bersama semua BSO)
-   Jangan diubah oleh pengurus BSO. Mekanisme khusus tiap BSO ditulis di
+   FMIPA Connect — mesin halaman sub divisi (dipakai bersama semua sub divisi)
+   Jangan diubah oleh pengurus sub divisi. Mekanisme khusus tiap sub divisi ditulis di
    <slug>/app.js lewat FC.bsoExt (lihat tools/bso-template/app.js).
 
    <body data-halaman="publik|admin" data-bso="<slug>" data-root="../">
@@ -67,7 +67,7 @@
       <div class="field"><label for="m-pass">Kata sandi</label><input id="m-pass" name="password" type="password" autocomplete="current-password" required></div>
       <p class="error-text" data-err hidden></p>
       <button class="btn btn-primary btn-block" type="submit">Masuk</button>
-      <p class="muted" style="font-size:.86rem">Belum punya akun? <a class="hl" href="${ROOT}index.html#/masuk">Daftar di FMIPA Connect</a>. Satu akun berlaku untuk semua BSO.</p>
+      <p class="muted" style="font-size:.86rem">Belum punya akun? <a class="hl" href="${ROOT}index.html#/masuk">Daftar di FMIPA Connect</a>. Satu akun berlaku untuk semua sub divisi.</p>
     </form>${demo}`;
   }
   function pasangMasuk(root, after) {
@@ -90,7 +90,7 @@
   }
 
   /* =================================================================
-     HALAMAN PUBLIK BSO: mini-situs dengan 6 halaman (router #/…)
+     HALAMAN PUBLIK SUB DIVISI: mini-situs dengan 6 halaman (router #/…)
      Data tambahan (logo, fokus, pengurus, program, galeri, kontak) diisi
      di assets/js/bso-config.js. Halaman Program & Galeri disembunyikan
      dari menu selama datanya kosong.
@@ -183,7 +183,7 @@
       <section class="page-hero bso-hero"><div class="wrap bso-hero-grid">
         <div>
           <nav class="crumbs" aria-label="Lokasi"><a href="${ROOT}">BEM FMIPA</a><span>/</span><span>${E(b.nama)}</span></nav>
-          <div class="chips" style="margin-top:18px"><span class="chip">BSO Departemen ${E(b.departemen)}</span>${ctx.info.pendaftaran_buka ? '<span class="chip ok">Pendaftaran dibuka</span>' : ""}</div>
+          <div class="chips" style="margin-top:18px"><span class="chip">Sub Divisi Departemen ${E(b.departemen)}</span>${ctx.info.pendaftaran_buka ? '<span class="chip ok">Pendaftaran dibuka</span>' : ""}</div>
           <h1>${E(b.nama)}</h1>
           ${d.kepanjangan ? `<p class="bso-kepanjangan">${E(d.kepanjangan)}</p>` : ""}
           ${b.tagline ? `<p class="tagline">${E(b.tagline)}</p>` : ""}
@@ -349,7 +349,7 @@
     const f = document.querySelector(".site-footer .wrap");
     if (!f || f.querySelector(".bso-lain")) return;
     const lain = REG.daftar.filter((x) => x.slug !== SLUG);
-    f.insertAdjacentHTML("afterbegin", `<nav class="bso-lain" aria-label="BSO lainnya"><span>Bagian Kami lainnya</span>${lain.map((x) => `<a href="${ROOT}${E(x.slug)}/">${E(x.nama)}</a>`).join("")}</nav>`);
+    f.insertAdjacentHTML("afterbegin", `<nav class="bso-lain" aria-label="Sub divisi lainnya"><span>Bagian Kami lainnya</span>${lain.map((x) => `<a href="${ROOT}${E(x.slug)}/">${E(x.nama)}</a>`).join("")}</nav>`);
   }
 
   async function isiPendaftaran(el) {
@@ -410,7 +410,7 @@
   }
 
   /* =================================================================
-     PANEL ADMIN BSO
+     PANEL ADMIN SUB DIVISI
      ================================================================= */
   let tab = "pendaftaran";
   function renderAdmin() {
@@ -469,7 +469,7 @@
         ${jaw.map(([k, v]) => `<dt>${E(label(k))}</dt><dd>${E(v)}</dd>`).join("")}</dl>
       <form class="form-grid" data-f>
         <div class="field"><label for="d-status">Status</label><select id="d-status" name="status">${Object.keys(STATUS).map((s) => `<option value="${s}" ${s === r.status ? "selected" : ""}>${STATUS[s][0]}</option>`).join("")}</select></div>
-        <div class="field"><label for="d-cat">Pesan untuk pendaftar</label><textarea id="d-cat" name="catatan" placeholder="Contoh: Selamat! Wawancara Sabtu 10.00 di Gedung O5.">${E(r.catatan || "")}</textarea><span class="hint">Pesan ini terlihat oleh pendaftar di halaman BSO.</span></div>
+        <div class="field"><label for="d-cat">Pesan untuk pendaftar</label><textarea id="d-cat" name="catatan" placeholder="Contoh: Selamat! Wawancara Sabtu 10.00 di Gedung O5.">${E(r.catatan || "")}</textarea><span class="hint">Pesan ini terlihat oleh pendaftar di halaman sub divisi.</span></div>
         <div class="modal-actions"><button class="btn btn-primary" type="submit">Simpan</button>${wa ? `<a class="btn btn-ghost" href="${E(wa)}" target="_blank" rel="noopener">${FC.icon("chat")} WhatsApp</a>` : ""}<button class="btn btn-danger" type="button" data-hapus>Hapus</button></div>
       </form>`, { wide: true, label: "Detail pendaftar" });
     const f = d.querySelector("[data-f]");
@@ -537,7 +537,7 @@
   function admPengaturan(el) {
     const i = ctx.info;
     el.innerHTML = `<form class="form-card form-grid" style="max-width:720px" data-f>
-      <div class="field"><label for="s-desk">Deskripsi BSO</label><textarea id="s-desk" name="deskripsi">${E(ctx.deskripsi)}</textarea><span class="hint">Tampil di bagian atas halaman publik.</span></div>
+      <div class="field"><label for="s-desk">Deskripsi sub divisi</label><textarea id="s-desk" name="deskripsi">${E(ctx.deskripsi)}</textarea><span class="hint">Tampil di bagian atas halaman publik.</span></div>
       <label class="check"><input type="checkbox" name="pendaftaran_buka" ${i.pendaftaran_buka ? "checked" : ""}> Pendaftaran anggota dibuka</label>
       <div class="field"><label for="s-info">Info pendaftaran</label><input id="s-info" name="pendaftaran_info" value="${E(i.pendaftaran_info || "")}" placeholder="Contoh: Dibuka 1–14 Maret, wawancara 20 Maret"></div>
       <p class="hint">Pertanyaan formulir pendaftaran diatur di <code>assets/js/bso-config.js</code>.</p>
@@ -553,7 +553,7 @@
 
   /* ---------------- mulai ---------------- */
   function render() {
-    if (!ctx.bso) { app.innerHTML = `<section class="page-hero"><div class="wrap"><h1>BSO tidak ditemukan</h1><p>Slug "${E(SLUG)}" belum ada di assets/js/bso-config.js.</p></div></section>`; return; }
+    if (!ctx.bso) { app.innerHTML = `<section class="page-hero"><div class="wrap"><h1>Sub divisi tidak ditemukan</h1><p>Slug "${E(SLUG)}" belum ada di assets/js/bso-config.js.</p></div></section>`; return; }
     if (HAL === "admin") renderAdmin(); else renderPublik();
   }
 

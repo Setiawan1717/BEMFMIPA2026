@@ -1,5 +1,5 @@
 /* =====================================================================
-   FMIPA Connect — tambahan gaya untuk halaman BSO (bso/<slug>/)
+   FMIPA Connect — tambahan gaya untuk halaman sub divisi (bso/<slug>/)
    Dipakai bersama style.css. Warna & huruf ikut pengaturan situs utama.
    ===================================================================== */
 .bso-header .wrap { gap: 16px; }
@@ -28,7 +28,7 @@
 .profil-box dt { color: var(--dim); }
 .profil-box dd { margin: 0; word-break: break-word; }
 
-/* ---------- panel admin BSO ---------- */
+/* ---------- panel admin sub divisi ---------- */
 .bso-adm { padding: calc(var(--header-h) + 28px) 0 60px; }
 .bso-adm .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
 .bso-adm .head h1 { font-size: clamp(2rem, 5vw, 2.8rem); }
@@ -49,7 +49,7 @@ button.adm-row:hover { border-color: var(--line-2); }
 .akses-note a { color: var(--lime); }
 
 
-/* ---------- mini-situs BSO (6 halaman) ---------- */
+/* ---------- mini-situs sub divisi (6 halaman) ---------- */
 .bso-nav a[aria-current="page"] { color: var(--lime); background: color-mix(in srgb, var(--lime) 8%, transparent); }
 .bso-burger { display: none; margin-left: 4px; }
 .bso-mobile { display: none; position: fixed; inset: var(--header-h) 0 0 0; z-index: 49; background: var(--bg-deep); padding: 12px 20px 40px; flex-direction: column; overflow-y: auto; }

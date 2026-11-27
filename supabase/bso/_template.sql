@@ -1,10 +1,10 @@
 -- =====================================================================
--- TEMPLAT tabel khusus satu BSO
+-- TEMPLAT tabel khusus satu sub divisi
 -- Salin file ini menjadi supabase/bso/<slug>.sql (misalnya gsc5.sql),
--- ganti setiap  NAMA_SLUG  dengan slug BSO-nya, lalu jalankan di SQL Editor.
+-- ganti setiap  NAMA_SLUG  dengan slug sub divisi-nya, lalu jalankan di SQL Editor.
 --
--- Aturan supaya data antar-BSO tidak bocor:
---   1. Nama tabel diawali slug BSO:  public.gsc5_peserta, public.fs2t_karya, ...
+-- Aturan supaya data antar-sub divisi tidak bocor:
+--   1. Nama tabel diawali slug sub divisi:  public.gsc5_peserta, public.fs2t_karya, ...
 --      (pakai garis bawah, misalnya science_entrepreneur_tenant)
 --   2. SELALU aktifkan RLS, dan tulis is_admin_bso('NAMA_SLUG') di setiap kebijakan.
 --   3. Jangan pernah memakai public.is_admin() saja: itu hanya admin pusat.

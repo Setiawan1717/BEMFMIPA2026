@@ -1,6 +1,6 @@
 /* =====================================================================
-   FMIPA Connect — DATA CONTOH halaman BSO (hanya dipakai di MODE DEMO)
-   Situs asli (Supabase) tidak memakai file ini. Data asli tiap BSO diisi
+   FMIPA Connect — DATA CONTOH halaman sub divisi (hanya dipakai di MODE DEMO)
+   Situs asli (Supabase) tidak memakai file ini. Data asli tiap sub divisi diisi
    di assets/js/bso-config.js (logo, kepanjangan, fokus, pengurus,
    program, galeri, kontak). Kolom yang sudah diisi di bso-config.js
    selalu menang atas data contoh ini.

@@ -1,26 +1,26 @@
-"""Buat (atau perbarui) folder halaman BSO dari tools/bso-template/.
+"""Buat (atau perbarui) folder halaman sub divisi dari tools/bso-template/.
 Hasilnya <slug>/ di folder utama, jadi alamatnya  situs.vercel.app/<slug>
 
 Jalankan dari folder utama situs:
-    python tools/buat-bso.py              → semua BSO di assets/js/bso-config.js
-    python tools/buat-bso.py gsc5         → satu BSO saja
+    python tools/buat-bso.py              → semua sub divisi di assets/js/bso-config.js
+    python tools/buat-bso.py gsc5         → satu sub divisi saja
 
 index.html dan admin.html selalu ditulis ulang dari templat.
-app.js (mekanisme khusus milik BSO) TIDAK pernah ditimpa bila sudah ada.
+app.js (mekanisme khusus milik sub divisi) TIDAK pernah ditimpa bila sudah ada.
 
-Menambah BSO baru:
+Menambah sub divisi baru:
     1. Tambahkan entrinya di assets/js/bso-config.js
     2. Tambahkan barisnya di supabase/bso.sql (bagian 1), jalankan ulang di Supabase
     3. python tools/buat-bso.py <slug>
 
-Mengganti alamat (slug) BSO yang sudah ada: ganti slug di bso-config.js dan di
+Mengganti alamat (slug) sub divisi yang sudah ada: ganti slug di bso-config.js dan di
 supabase/bso.sql, ganti nama foldernya, lalu jalankan skrip ini lagi.
 """
 import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TPL = os.path.join(ROOT, "tools", "bso-template")
-# Nama folder yang sudah dipakai situs utama, tidak boleh jadi slug BSO
+# Nama folder yang sudah dipakai situs utama, tidak boleh jadi slug sub divisi
 DILARANG = {"assets", "supabase", "tools", "dist", "api", "admin", "index"}
 
 
