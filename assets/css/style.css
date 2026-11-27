@@ -127,6 +127,7 @@ p { margin: 0; }
 .mobile-nav a { padding: 14px 6px; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.35rem; display: flex; justify-content: space-between; align-items: center; }
 .mobile-nav a.sub { font-family: var(--sans); font-size: 1rem; padding-left: 22px; color: var(--muted); }
 .mobile-nav a.active { color: var(--lime); }
+.mobile-nav .mobile-label { padding: 18px 6px 6px; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
 .mobile-nav .btn { margin-top: 18px; }
 
 /* ---------------- tombol ---------------- */
@@ -517,7 +518,7 @@ input[type=date]::-webkit-calendar-picker-indicator { filter: invert(.85); }
   .services.five { grid-template-columns: repeat(6, 1fr); }
   .services.five .service { grid-column: span 2; }
   .services.five .service:nth-child(4), .services.five .service:nth-child(5) { grid-column: span 3; }
-  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; }
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr 1.2fr; }
   .cta-band { grid-template-columns: 1fr auto; }
   .auth-wrap { grid-template-columns: .9fr 1.1fr; gap: 56px; }
   .stats { grid-template-columns: repeat(2, 1fr); max-width: 560px; }
