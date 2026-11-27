@@ -64,7 +64,7 @@
       ]
     },
     beranda: {
-      judul: "Beranda", sub: "Video profil, program kerja unggulan, kalender kegiatan, dan prestasi.",
+      judul: "Beranda", sub: "Video profil, program kerja unggulan, kalender kegiatan, prestasi, dan sponsor.",
       grup: [
         { judul: "Video profil", f: [
           { k: "org.video.url", t: "url", l: "Link YouTube", h: "Tempel link video YouTube, misalnya https://youtu.be/xxxx" },
@@ -80,7 +80,12 @@
         { judul: "Prestasi mahasiswa", f: [{ k: "org.prestasi", t: "list", add: "Tambah prestasi", title: "lomba", tpl: { peringkat: "", lomba: "", nama: "", dept: "", tahun: "", foto: "" }, f: [
           { k: "peringkat", t: "text", l: "Peringkat", h: "Contoh: Juara 1" }, { k: "lomba", t: "text", l: "Nama lomba" },
           { k: "nama", t: "text", l: "Nama mahasiswa / tim" }, { k: "dept", t: "text", l: "Departemen" },
-          { k: "tahun", t: "text", l: "Tahun" }, { k: "foto", t: "image", l: "Foto", size: "person" }] }] }
+          { k: "tahun", t: "text", l: "Tahun" }, { k: "foto", t: "image", l: "Foto", size: "person" }] }] },
+        { judul: "Sponsor & mitra", f: [{ k: "org.sponsor", t: "list", add: "Tambah sponsor", title: "nama", tpl: { nama: "", logo: "", url: "", ukuran: "sedang" }, f: [
+          { k: "nama", t: "text", l: "Nama sponsor" },
+          { k: "url", t: "url", l: "Link situs sponsor", h: "Dibuka di tab baru saat logo diklik. Kosongkan bila logo tidak perlu bisa diklik." },
+          { k: "ukuran", t: "select", l: "Ukuran logo", opts: () => [["kecil", "Kecil"], ["sedang", "Sedang"], ["besar", "Besar (sponsor utama)"]] },
+          { k: "logo", t: "image", l: "Logo", size: "logo", h: "Disarankan PNG transparan atau SVG. Bagian sponsor tampil di paling bawah beranda; hapus semua sponsor untuk menyembunyikannya." }] }] }
       ]
     },
     pengurus: {
