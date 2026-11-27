@@ -10,6 +10,17 @@
    `pertanyaan` = isian formulir pendaftaran anggota. Jenis: text,
    textarea, select (isi `pilihan`), url. Data diri (nama, NIM, WA)
    otomatis diambil dari profil akun.
+
+   ISIAN HALAMAN (semua opsional; halaman Program & Galeri baru muncul di
+   menu kalau datanya ada). Contoh lengkap ada di assets/js/bso-contoh.js.
+     kepanjangan: "Kepanjangan nama BSO",
+     logo: "../assets/img/bso/<slug>.png" atau link gambar,
+     fokus:    [{ judul, isi }],
+     pengurus: [{ nama, jabatan, prodi, foto, bio, instagram }],
+     program:  [{ judul, isi, mulai: "2027-03" atau "2027-03-14", selesai, status }]
+               (status otomatis dari tanggal; boleh dipaksa "akan" | "berjalan" | "selesai"),
+     galeri:   [{ src, caption }],
+     kontak:   { instagram, whatsapp, narahubung, email }
    ===================================================================== */
 window.FC_BSO = {
   daftar: [
