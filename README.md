@@ -20,8 +20,15 @@ fmipa-connect/
 │       ├── data.js       ← koneksi Supabase + mode demo
 │       ├── ui.js         ← komponen tampilan bersama
 │       ├── app.js        ← halaman mahasiswa
-│       └── admin.js      ← halaman admin
-└── supabase/schema.sql   ← tabel, keamanan (RLS), dan fungsi database
+│       ├── admin.js      ← halaman admin
+│       ├── bso-config.js ← ⚙️ daftar BSO + pertanyaan formulir pendaftaran
+│       └── bso-page.js   ← mesin halaman BSO (dipakai bersama)
+├── gsc5/, komipa/, …     ← satu folder per BSO: index.html, admin.html, app.js
+│                           (lihat bagian "Halaman BSO")
+├── tools/bso-template/   ← cetakan halaman BSO baru
+├── supabase/schema.sql   ← tabel, keamanan (RLS), dan fungsi database
+├── supabase/bso.sql      ← tabel & hak akses BSO
+└── supabase/bso/         ← tabel khusus tiap BSO (salin dari _template.sql)
 ```
 
 ## Kalau tampilannya polos / berantakan
@@ -77,6 +84,59 @@ Mode demo cocok untuk presentasi. Untuk dipakai seluruh mahasiswa, sambungkan ke
 
 Tetapkan sedikit saja admin yang boleh membaca Kanal Pengaduan (misalnya Ketua BEM dan Kadep Advokesma),
 karena laporan kekerasan bersifat sangat rahasia.
+
+## Halaman BSO (Badan Semi Otonom)
+
+Enam BSO punya halaman dan panel admin sendiri, tetapi tetap satu situs, satu database, dan satu akun mahasiswa.
+Alamatnya langsung di belakang alamat situs, misalnya `bemfmipa2026.vercel.app/gsc5`:
+
+| BSO | Departemen | Alamat | Panel admin |
+|---|---|---|---|
+| Science Entrepreneur | Hubeks | `/science-entrepreneur` | `/science-entrepreneur/admin.html` |
+| Kharisma | Kesma | `/kharisma` | `/kharisma/admin.html` |
+| KOMIPA | Seniora | `/komipa` | `/komipa/admin.html` |
+| GSC-5 | Seniora | `/gsc5` | `/gsc5/admin.html` |
+| Aswa | Seniora | `/aswa` | `/aswa/admin.html` |
+| FS2T | Riskel | `/fs2t` | `/fs2t/admin.html` |
+
+Link ke keenam BSO ada di footer situs utama. Semua BSO otomatis punya **Pengumuman**, **Pendaftaran anggota** (buka/tutup, terima/tolak, pesan untuk pendaftar, unduh CSV), dan **Pengaturan**.
+Mekanisme khusus tiap BSO ditulis di `<slug>/app.js` (misalnya `gsc5/app.js`).
+
+### Memasang di Supabase
+
+Jalankan `supabase/bso.sql` di SQL Editor **setelah** `schema.sql`.
+
+### Hak akses bertingkat
+
+| Tingkat | Bisa mengelola | Cara memberi akses |
+|---|---|---|
+| Admin pusat | Semua BSO + situs utama + Kanal Pengaduan | tabel `admins` (lihat di atas) |
+| Admin departemen | Semua BSO di departemennya (misalnya Kadep Seniora → KOMIPA, GSC-5, Aswa) | `insert into public.bso_admins (user_id, departemen_bem) select id, 'Seniora' from auth.users where email = '...';` |
+| Admin BSO | Hanya BSO itu | `insert into public.bso_admins (user_id, bso) select id, 'gsc5' from auth.users where email = '...';` |
+
+Admin departemen dan admin BSO **tidak** bisa membuka panel admin utama, Kanal Pengaduan, atau data BSO lain.
+Hanya admin pusat yang bisa menambah atau mencabut admin BSO.
+
+Akun demo (mode demo): `komipa@demo.id`, `gsc5@demo.id`, `aswa@demo.id`, `kharisma@demo.id`, `fs2t@demo.id`,
+`science-entrepreneur@demo.id`, dan `kadep.seniora@demo.id`, semuanya dengan kata sandi `demo123`.
+
+### Aturan supaya aman
+
+1. **Pengurus BSO hanya mengubah folder `<slug>/` miliknya.** File di `assets/`, `supabase/`, dan `tools/` dipakai bersama; ubah lewat tim IT pusat.
+   Isi username GitHub di `.github/CODEOWNERS` lalu nyalakan *Require review from Code Owners* di pengaturan branch `main`.
+2. **Tabel khusus BSO** dibuat dari `supabase/bso/_template.sql`: nama tabel diawali slug (`gsc5_...`) dan setiap kebijakan RLS memakai `is_admin_bso('<slug>')`.
+3. **`service_role` key dan akses SQL Editor Supabase hanya dipegang tim IT pusat.** Pengurus BSO cukup memakai panel admin.
+
+### Menambah BSO baru
+
+1. Tambahkan entrinya di `assets/js/bso-config.js`.
+2. Tambahkan barisnya di `supabase/bso.sql` (bagian 1), lalu jalankan ulang file itu di Supabase.
+3. Jalankan `python tools/buat-bso.py <slug>`. Perintah ini membuat folder `<slug>/`; `app.js` yang sudah ada tidak akan ditimpa.
+4. Tambahkan link-nya di footer `index.html` (bagian `footer-bso`).
+
+Slug tidak boleh sama dengan folder situs utama (`assets`, `supabase`, `tools`, `dist`).
+
+Setelah mengganti angka `?v=` di `index.html`, jalankan `python tools/buat-bso.py` supaya semua halaman BSO ikut memakai versi baru.
 
 ## Deploy ke Netlify (gratis)
 
