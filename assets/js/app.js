@@ -855,10 +855,11 @@
 
   function renderJelajah(body, q, tim, saya) {
     const applied = new Set(saya.map((l) => l.tim_id));
-    const f = { dept: "Semua", view: q.get("view") || "kartu", lomba: q.get("lomba") };
+    const f = { dept: "Semua", view: q.get("view") || "kartu", lomba: q.get("lomba"), kat: q.get("kategori") };
     const base = () => tim.filter((t) => t.status === "buka" && (!state.user || t.owner_id !== state.user.id))
       .filter((t) => f.dept === "Semua" || (t.butuh_departemen || []).includes(f.dept))
-      .filter((t) => !f.lomba || String(t.info_id) === String(f.lomba));
+      .filter((t) => !f.lomba || String(t.info_id) === String(f.lomba))
+      .filter((t) => !f.kat || t.kategori === f.kat);
 
     body.innerHTML = `
       <div class="toolbar">
@@ -869,6 +870,7 @@
         </div>
       </div>
       ${f.lomba ? `<p class="muted" style="margin:-8px 0 20px;font-size:.88rem">Menampilkan tim untuk satu lomba tertentu. <a class="hl" href="#/teman">Tampilkan semua</a></p>` : ""}
+      ${f.kat ? `<p class="muted" style="margin:-8px 0 20px;font-size:.88rem">Menampilkan lowongan kategori <b>${esc(f.kat)}</b>. <a class="hl" href="#/teman?tab=buat&kategori=${encodeURIComponent(f.kat)}">Buat lowongan ${esc(f.kat.toLowerCase())}</a> · <a class="hl" href="#/teman">Tampilkan semua</a></p>` : ""}
       <div id="jlBody"></div>`;
 
     const draw = () => {
@@ -1008,6 +1010,7 @@
     const lomba = (await D.listInfo("lomba").catch(() => [])).filter((x) => { const n = FC.daysLeft(x.deadline); return n === null || n >= 0; });
     const pre = edit || {};
     const fromInfo = q.get("info") ? lomba.find((x) => String(x.id) === q.get("info")) : null;
+    if (!edit && q.get("kategori") && FC.KATEGORI.lomba.includes(q.get("kategori"))) pre.kategori = q.get("kategori");
     if (fromInfo && !edit) Object.assign(pre, { nama_lomba: fromInfo.judul, info_id: fromInfo.id, kategori: fromInfo.kategori, tingkat: fromInfo.tingkat, deadline: fromInfo.deadline });
     const has = (arr, v) => (arr || []).includes(v);
     body.innerHTML = `
