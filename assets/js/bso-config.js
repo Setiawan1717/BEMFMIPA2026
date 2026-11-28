@@ -73,12 +73,27 @@ window.FC_BSO = {
       slug: "komipa",
       nama: "KOMIPA",
       departemen: "Seniora",
+      kepanjangan: "Komite Olahraga FMIPA",
       sembunyikan: ["galeri", "pengumuman", "daftar"],
-      tagline: "Ruang berkarya mahasiswa MIPA.",
-      deskripsi: "KOMIPA adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM yang mewadahi mahasiswa FMIPA untuk menyalurkan minat, mengasah kreativitas, dan menampilkan karya terbaiknya.",
+      tagline: "Di organisasi lain nambah capek, di KOMIPA ngilangin capek.",
+      deskripsi: "KOMIPA (Komite Olahraga FMIPA) adalah sub divisi Departemen Seniora BEM FMIPA UM yang menjadi komunitas olahraga mahasiswa FMIPA sepanjang tahun. Lewat latihan rutin bersama pelatih dari FIK, Liga MIPA antar-departemen, dan apresiasi atlet MIPA, kami menjadikan olahraga sebagai waktu refreshing di sela laprak, praktikum, dan tugas.",
+      // Halaman khusus KOMIPA (Rutin, Liga MIPA, Atlet MIPA) ada di komipa/app.js, datanya di komipa/liga.js
+      cta: { teks: "Lihat jadwal latihan", href: "#/rutin" },
+      fokus: [
+        { judul: "Latihan rutin", isi: "KOMIPA Rutin: olahraga bareng 2 minggu sekali, sekitar 2 jam, dengan cabor bergilir dan pelatih dari FIK. Libur saat UTS dan UAS." },
+        { judul: "Liga antar-departemen", isi: "Liga MIPA: futsal, voli, dan badminton antar-departemen setiap Sabtu, lengkap dengan klasemen, top skor, MVP, dan final." },
+        { judul: "Panggung untuk atlet", isi: "Apresiasi Atlet MIPA: prestasi mahasiswa FMIPA di klub dan lomba olahraga diliput lewat rubrik Atlet MIPA Bulan Ini." }
+      ],
+      program: [
+        { judul: "KOMIPA Rutin", isi: "Latihan olahraga bersama setiap 2 minggu sekali, sekitar 2 jam per sesi, dengan cabor bergilir: futsal, badminton, voli, basket, serta lari atau senam. Dilatih mahasiswa FIK lewat kerja sama dengan BEM FIK. Kalau pelatih berhalangan, latihan tetap jalan secara mandiri. Libur saat UTS dan UAS." },
+        { judul: "Komunitas per cabor", isi: "Komunitas seperti FMIPA Futsal dan FMIPA Badminton, masing-masing dengan koordinator, supaya latihan tetap jalan sepanjang tahun." },
+        { judul: "Liga MIPA", isi: "Liga antar-departemen dengan 3 cabor: futsal putra, voli putri, dan badminton ganda campuran. Format setengah kompetisi selama 3–5 pekan, pertandingan setiap Sabtu, lalu ditutup dengan final yang meriah." },
+        { judul: "Apresiasi Atlet MIPA", isi: "Pendataan dan publikasi prestasi mahasiswa FMIPA yang aktif di klub atau lomba olahraga eksternal, termasuk rubrik Atlet MIPA Bulan Ini di Instagram BEM dan FMIPA Connect." },
+        { judul: "Podcast olahraga bersama BEM", isi: "KOMIPA menyiapkan tema dan narasumber untuk episode olahraga di podcast BEM, misalnya obrolan dengan atlet MIPA dan sains di balik olahraga." },
+        { judul: "Kolaborasi dengan Seniora", isi: "Penampilan seni di pembukaan atau final Liga MIPA, dan acara penutupan bersama di akhir periode." }
+      ],
       pertanyaan: [
-        { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
-        { name: "portofolio", label: "Link portofolio (opsional)", type: "url" }
+        { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
     },
     {
