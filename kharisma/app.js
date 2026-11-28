@@ -4,12 +4,11 @@
    jangan mengubah file di assets/ (dipakai bersama semua sub divisi).
 
    Halaman publik khusus Kharisma:
-     #/gabung       → kenapa gabung: beban ringan, peran per program, benefit anggota
      #/ngaji-sains  → arsip & rencana tema Ngaji Sains (filter bidang + cari)
      #/agenda       → kalender kegiatan bulanan + simpan ke Google Calendar
      #/fun-fact     → Fun Fact MIPA (konten IG) + tokoh ilmuwan Muslim
    Isi semua halaman di atas diatur di kharisma/kajian.js.
-   Teks identitas, program kerja, dan pertanyaan pendaftaran ada di assets/js/bso-config.js.
+   Teks identitas dan program kerja ada di assets/js/bso-config.js.
 
    Setiap render(el, ctx) menerima:
      el   → elemen tempat menggambar isi
@@ -49,51 +48,6 @@
     lain: { judul: "Lainnya", ikon: "cal" }
   };
   const jenis = (a) => JENIS[a.jenis] ? a.jenis : "lain";
-
-  /* =================================================================
-     GABUNG
-     ================================================================= */
-  function hGabung(el, ctx) {
-    const buka = ctx.info && ctx.info.pendaftaran_buka;
-    const peran = [
-      ["Ngaji Sains & Ngaji Online", "Host, MC, dan fasilitator kajian", "Public speaking dan MC di depan dosen, ustadz, dan peserta. Pemateri diundang dari luar, jadi kamu tidak perlu menguasai materinya.", "users"],
-      ["Fun Fact MIPA", "Pembuat konten Instagram", "Desain di Canva, copywriting, dan mengelola akun Instagram. Template sudah disiapkan, tinggal ganti teks.", "camera"],
-      ["Program Ramadhan", "Panitia bukber, takjil, dan donasi", "Manajemen acara dan kerja tim lintas divisi bersama Kementerian Sosial Lingkungan.", "heart"]
-    ];
-    const dapat = [
-      ["cap", "Pelatihan gratis", "Kelas Canva dan MC di bulan pertama, sebelum kamu mulai bertugas."],
-      ["trophy", "Sertifikat & portofolio", "Sertifikat kepanitiaan tiap program, poin kegiatan/SKPI jika kampus memakainya, dan hasil karya nyata untuk CV."],
-      ["user", "Namamu tampil", "Nama PIC dicantumkan di setiap konten dan poster yang kamu pegang."],
-      ["users", "Relasi", "Kenal langsung dengan dosen berbagai jurusan, ustadz, dan pengurus divisi lain. Berguna untuk skripsi, beasiswa, dan riset."],
-      ["spark", "Apresiasi", "Penghargaan Anggota Terbaik tiap beberapa bulan, dan anggota aktif diprioritaskan untuk jabatan periode berikutnya."],
-      ["heart", "Amal jariyah", "Ilmu yang kamu bantu sebarkan lewat kajian dan konten bisa terus mengalir manfaatnya."]
-    ];
-    el.innerHTML = ctx.ui.judulHal("Bergabung", "Kenapa gabung Kharisma?", "Belajar Islam lewat kacamata sains, mengasah skill yang laku di luar organisasi, dengan beban yang tetap ringan.") + `
-      <section class="bso-section"><div class="wrap">
-        <div class="kh-ringan">
-          <div class="kh-ringan-angka"><b>3–5</b><span>jam sebulan</span></div>
-          <div><span class="eyebrow">Beban ringan</span><h2>Cukup pegang satu tugas</h2>
-            <ul class="kh-cek">
-              <li>${FC.icon("check")}<span>Tiap anggota hanya pegang <b>1 tugas</b>, kira-kira 3–5 jam sebulan, kebanyakan bisa dikerjakan dari HP.</span></li>
-              <li>${FC.icon("check")}<span>Template konten dan poster sudah disiapkan sejak awal.</span></li>
-              <li>${FC.icon("check")}<span><b>Libur saat UTS dan UAS</b>. Koordinasi lewat grup, rapat online cukup 15 menit sebulan.</span></li>
-              <li>${FC.icon("check")}<span>Lagi padat? Boleh tukar giliran atau minta di-backup, asal bilang jauh hari.</span></li>
-            </ul></div>
-        </div>
-      </div></section>
-      <section class="bso-section"><div class="wrap">
-        <span class="eyebrow">Pilih peranmu</span><h2>Satu program, satu skill baru</h2>
-        <div class="kh-peran">${peran.map(([p, r, isi, ik]) => `<article class="bso-card"><span class="kh-ikon" aria-hidden="true">${FC.icon(ik)}</span><small class="kh-label">${E(p)}</small><h3>${E(r)}</h3><p>${E(isi)}</p></article>`).join("")}</div>
-      </div></section>
-      <section class="bso-section"><div class="wrap">
-        <span class="eyebrow">Yang kamu dapat</span><h2>Bukan cuma pengalaman</h2>
-        <div class="kh-dapat">${dapat.map(([ik, j, isi]) => `<div class="kh-dapat-item"><span class="kh-ikon" aria-hidden="true">${FC.icon(ik)}</span><div><b>${E(j)}</b><p>${E(isi)}</p></div></div>`).join("")}</div>
-        <div class="kh-cta">
-          <div><h3>${buka ? "Pendaftaran sedang dibuka" : "Tertarik bergabung?"}</h3><p class="muted">${buka ? "Isi formulir singkat dan pilih program yang ingin kamu pegang." : "Pendaftaran belum dibuka. Cek halaman Daftar untuk info terbaru."}</p></div>
-          <a class="btn btn-primary" href="#/daftar">${buka ? "Daftar sekarang" : "Lihat info pendaftaran"}</a>
-        </div>
-      </div></section>`;
-  }
 
   /* =================================================================
      NGAJI SAINS
@@ -259,8 +213,7 @@
     publik: [
       { id: "ngaji-sains", judul: "Ngaji Sains", sub: "Arsip & rencana tema kajian", penuh: true, render: hNgajiSains },
       { id: "agenda", judul: "Agenda", sub: "Kalender kegiatan bulanan", penuh: true, render: hAgenda },
-      { id: "fun-fact", judul: "Fun Fact", sub: "Fakta MIPA & ilmuwan Muslim", penuh: true, render: hFunFact },
-      { id: "gabung", judul: "Gabung", sub: "Cuma 1 tugas, ±3–5 jam sebulan", penuh: true, render: hGabung }
+      { id: "fun-fact", judul: "Fun Fact", sub: "Fakta MIPA & ilmuwan Muslim", penuh: true, render: hFunFact }
     ],
     admin: []
   };
