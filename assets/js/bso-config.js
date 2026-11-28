@@ -109,11 +109,27 @@ window.FC_BSO = {
     },
     {
       slug: "aswa",
-      nama: "Aswa",
+      nama: "ASWA",
       departemen: "Seniora",
+      kepanjangan: "Arek Seni Warga MIPA",
+      tagline: "Les seni gratis, panggung buat tampil, dan karyamu dilihat banyak orang.",
+      deskripsi: "ASWA (Arek Seni Warga MIPA) adalah sub divisi Departemen Seniora BEM FMIPA UM untuk tari, teater, musik, dan seni rupa. ASWA menjadi ruang berkarya warga MIPA: belajar seni secara rutin, mengirim karya, lalu tampil dari panggung kecil sampai panggung besar BEM.",
+      // Halaman khusus ASWA (Studio, Kirim Karya, Panggung, Keuntungan) ada di aswa/app.js, datanya di aswa/karya.js
       sembunyikan: ["galeri", "pengumuman", "daftar"],
-      tagline: "Ekspresikan dirimu, banggakan FMIPA.",
-      deskripsi: "Aswa adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM yang menjadi tempat mahasiswa FMIPA mengekspresikan diri lewat seni, berkarya bersama, dan tampil membanggakan fakultas.",
+      cta: { teks: "Kirim karyamu", href: "#/kirim-karya" },
+      fokus: [
+        { judul: "Latihan bergilir", isi: "Studio ASWA: tiap minggu ada latihan dengan bidang yang bergantian, jadi tiap bidang cukup sebulan sekali." },
+        { judul: "Upload karya", isi: "Siapa pun warga MIPA boleh mengirim karyanya, dari lagu, puisi, dan tari sampai gambar, desain, atau video." },
+        { judul: "Open panggung", isi: "Karya dan hasil latihan ditampilkan di panggung kecil, seperti gladi yang serius dengan penonton sungguhan." },
+        { judul: "Segmen puncak", isi: "Semua bidang tampil bersama GSC-5 dalam satu segmen penuh di acara Character Building BEM." }
+      ],
+      program: [
+        { judul: "Studio ASWA", isi: "Latihan rutin bergilir per bidang (tari, teater, musik, seni rupa) dengan format santai 1–2 jam: olah tubuh dan vokal, akting, jamming, atau sketsa bersama. Peserta cukup ikut bidang yang diminati." },
+        { judul: "Upload Karya Warga MIPA", isi: "Pengganti lomba poster. Warga MIPA mengirim karya apa pun, lalu karya dikurasi. Yang terpilih tampil di open panggung atau dipajang, dan yang terbaik naik ke segmen puncak. Tujuannya memberi panggung, bukan mencari juara." },
+        { judul: "Open Panggung", isi: "Panggung kecil 2–3 kali per semester untuk penampil ASWA, GSC-5, dan karya hasil upload. Formatnya seperti gladi bersih: latihan serius dengan penonton sungguhan." },
+        { judul: "Segmen Puncak di Character Building", isi: "ASWA dan GSC-5 direncanakan memegang satu segmen penuh di acara Character Building BEM: tari, teater, musik, paduan suara, pameran karya, dan penghargaan." },
+        { judul: "Spotlight Karya Warga MIPA", isi: "Apresiasi dua kali sebulan di Instagram yang menampilkan orang dan karyanya, sekaligus mengajak warga MIPA mengirim karya." }
+      ],
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
