@@ -45,10 +45,27 @@ window.FC_BSO = {
       slug: "kharisma",
       nama: "Kharisma",
       departemen: "Kesma",
-      tagline: "Tumbuh bersama, peduli sesama.",
-      deskripsi: "Kharisma adalah sub divisi di bawah Departemen Kesma BEM FMIPA UM. Kami menjadi ruang bagi mahasiswa FMIPA untuk saling peduli, tumbuh bersama, dan menghadirkan kegiatan yang bermanfaat bagi warga fakultas.",
+      kepanjangan: "Kreativitas Islam FMIPA",
+      tagline: "Tempat sains dan iman bertemu.",
+      deskripsi: "Kharisma (Kreativitas Islam FMIPA) adalah sub divisi Departemen Kesma BEM FMIPA UM yang membahas Islam lewat kacamata sains. Lewat kajian, konten, dan kegiatan sosial, kami mengajak mahasiswa MIPA mengenal ayat-ayat kauniyah dengan cara yang kreatif dan santai.",
+      // Halaman khusus Kharisma (Gabung, Ngaji Sains, Agenda, Fun Fact) ada di kharisma/app.js, datanya di kharisma/kajian.js
+      cta: { teks: "Gabung jadi anggota", href: "#/gabung" },
+      fokus: [
+        { judul: "Kajian sains dan iman", isi: "Ngaji Sains dan Ngaji Online: membahas ayat-ayat kauniyah bersama ustadz dan dosen MIPA, plus tajwid dan sejarah Islam." },
+        { judul: "Konten kreatif", isi: "Fun Fact MIPA di Instagram: fakta seputar MIPA dari sudut pandang Islam dan kisah ilmuwan Muslim di tiap bidang." },
+        { judul: "Peduli sesama", isi: "Program Ramadhan bersama Kementerian Sosial Lingkungan: buka bersama, bagi takjil, dan donasi." }
+      ],
+      program: [
+        { judul: "Ngaji Sains", isi: "Kajian tematik sebulan sekali yang menghubungkan ilmu MIPA dengan Islam, dibawakan ustadz dan dosen MIPA. Format santai sekitar 60 menit dengan tanya jawab; bulan-bulan awal dicoba online atau hybrid." },
+        { judul: "Fun Fact MIPA", isi: "Konten Instagram sebulan sekali tentang fakta seputar MIPA dari sudut pandang Islam, termasuk tokoh ilmuwan Muslim sesuai jurusan." },
+        { judul: "Ngaji Online", isi: "Pertemuan online tiap beberapa minggu dengan materi bergilir: tajwid, sejarah Islam, dan topik keislaman lain bersama pemateri tamu." },
+        { judul: "Program Ramadhan", isi: "Buka bersama, bagi-bagi takjil, dan donasi selama Ramadhan, bekerja sama dengan Kementerian Sosial Lingkungan." }
+      ],
       pertanyaan: [
-        { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
+        { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
+        { name: "program", label: "Program yang ingin kamu pegang", type: "select", wajib: true,
+          pilihan: ["Ngaji Sains (host & MC)", "Fun Fact MIPA (desain & konten IG)", "Ngaji Online (host & fasilitator)", "Program Ramadhan (acara & donasi)", "Belum tahu, ikut arahan pengurus"] },
+        { name: "skill", label: "Skill apa yang ingin kamu asah tahun ini? (opsional)", type: "text", hint: "Contoh: public speaking, desain Canva, copywriting, mengelola acara." }
       ]
     },
     {

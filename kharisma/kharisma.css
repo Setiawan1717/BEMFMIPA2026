@@ -1,0 +1,99 @@
+/* Kharisma — gaya khusus halaman Gabung, Ngaji Sains, Agenda, Fun Fact (hanya dimuat di folder ini) */
+:root { --kh-sains: var(--lime); --kh-online: #8FD3FF; --kh-ff: #FFB86B; --kh-ramadhan: #F49AC1; --kh-lain: var(--muted); }
+
+.kh-ikon { width: 42px; height: 42px; border-radius: 12px; display: inline-grid; place-items: center; color: var(--lime); background: color-mix(in srgb, var(--lime) 10%, transparent); border: 1px solid var(--line-2); flex: none; }
+.kh-ikon svg { width: 20px; height: 20px; }
+.kh-label { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+
+/* Gabung */
+.kh-ringan { display: grid; gap: clamp(22px, 5vw, 56px); align-items: center; grid-template-columns: auto 1fr; padding: clamp(22px, 4vw, 40px); border-radius: var(--r-lg); border: 1px solid var(--line-2); background: var(--glass); }
+.kh-ringan h2 { margin: 8px 0 16px; }
+.kh-ringan-angka { display: grid; place-items: center; text-align: center; width: clamp(130px, 22vw, 200px); aspect-ratio: 1; border-radius: 50%; background: var(--grad); color: var(--ink); }
+.kh-ringan-angka b { font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1; }
+.kh-ringan-angka span { font-weight: 700; font-size: .9rem; margin-top: -30%; }
+.kh-cek { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.kh-cek li { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); }
+.kh-cek li svg { color: var(--lime); margin-top: 3px; }
+.kh-cek b { color: var(--text); }
+.kh-peran { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 22px; }
+.kh-dapat { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 22px; }
+.kh-dapat-item { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); }
+.kh-dapat-item p { color: var(--muted); font-size: .9rem; margin-top: 4px; }
+.kh-cta { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-top: 30px; padding: 22px 24px; border-radius: var(--r); border: 1px dashed var(--line-2); }
+.kh-cta h3 { font-family: var(--sans); font-size: 1.1rem; }
+
+/* Ngaji Sains */
+.kh-format { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.kh-format li { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); }
+.kh-format svg { color: var(--lime); margin-top: 2px; }
+.kh-format b { display: block; }
+.kh-format small { color: var(--muted); font-size: .84rem; }
+.kh-kajian-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+.kh-kajian { padding: 22px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); display: grid; gap: 10px; align-content: start; }
+.kh-kajian .top { display: flex; gap: 8px; flex-wrap: wrap; }
+.kh-kajian h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; line-height: 1.25; }
+.kh-kajian > p { color: var(--muted); font-size: .92rem; }
+.kh-ayat, .kh-meta { display: flex; gap: 8px; align-items: flex-start; font-size: .86rem !important; }
+.kh-ayat { color: var(--cream) !important; font-style: italic; }
+.kh-ayat svg, .kh-meta svg { width: 16px; height: 16px; margin-top: 2px; color: var(--lime); }
+.kh-aksi { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+
+/* Agenda */
+.kh-bulan { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.kh-bulan h2 { font-size: clamp(1.4rem, 3.4vw, 1.9rem); min-width: 9.5ch; text-align: center; }
+.kh-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--kh-lain); margin-right: 6px; vertical-align: middle; flex: none; }
+.kh-dot.ngaji-sains, .kh-ev.ngaji-sains .dot { background: var(--kh-sains); }
+.kh-dot.ngaji-online, .kh-ev.ngaji-online .dot { background: var(--kh-online); }
+.kh-dot.fun-fact, .kh-ev.fun-fact .dot { background: var(--kh-ff); }
+.kh-dot.ramadhan, .kh-ev.ramadhan .dot { background: var(--kh-ramadhan); }
+.kh-kal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.kh-kal-head { font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); text-align: center; padding: 4px 0; }
+.kh-hari { min-height: 104px; padding: 8px; border-radius: 14px; border: 1px solid var(--line); background: var(--glass); display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.kh-hari.kosong { border: 0; background: none; }
+.kh-hari .tgl { font-size: .82rem; font-weight: 700; color: var(--muted); }
+.kh-hari.hari-ini { border-color: var(--lime); }
+.kh-hari.hari-ini .tgl { color: var(--ink); background: var(--grad); border-radius: 999px; width: 24px; height: 24px; display: grid; place-items: center; }
+.kh-hari.libur, .kh-libur-swatch { background: repeating-linear-gradient(135deg, rgba(255,255,255,.035) 0 6px, transparent 6px 12px); }
+.kh-libur-lbl { font-size: .68rem; color: var(--warn); font-weight: 600; }
+.kh-ev { display: flex; align-items: center; gap: 0; width: 100%; padding: 3px 6px; border-radius: 8px; border: 0; background: rgba(255,255,255,.05); color: var(--text); font: inherit; font-size: .74rem; text-align: left; cursor: pointer; min-width: 0; }
+.kh-ev:hover, .kh-ev:focus-visible { background: color-mix(in srgb, var(--lime) 14%, transparent); }
+.kh-ev .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; margin-right: 6px; background: var(--kh-lain); }
+.kh-ev .t { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kh-libur-ket { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: .86rem; }
+.kh-libur-swatch { width: 18px; height: 18px; border-radius: 5px; border: 1px solid var(--line-2); flex: none; }
+.kh-list { display: grid; gap: 10px; }
+.kh-list-item { display: flex; gap: 16px; align-items: center; padding: 14px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--glass); color: inherit; font: inherit; text-align: left; cursor: pointer; width: 100%; transition: border-color .2s; }
+.kh-list-item:hover { border-color: var(--line-2); }
+.kh-list-item > svg { margin-left: auto; color: var(--dim); flex: none; }
+.kh-list-tgl { display: grid; place-items: center; width: 52px; flex: none; }
+.kh-list-tgl b { font-family: var(--serif); font-size: 1.6rem; line-height: 1; color: var(--cream); }
+.kh-list-tgl small { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); }
+.kh-list-isi { display: grid; gap: 2px; min-width: 0; }
+.kh-list-isi small { color: var(--muted); font-size: .8rem; }
+
+/* Fun Fact */
+.kh-ff-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.kh-ff { padding: 22px; border-radius: var(--r); border: 1px solid var(--line); display: grid; gap: 10px; align-content: start;
+  background: radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--lime) 12%, transparent), transparent 55%), var(--glass); }
+.kh-ff .chip { justify-self: start; }
+.kh-ff h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
+.kh-ff p { color: var(--muted); font-size: .9rem; }
+.kh-ff-bawah { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: .84rem; margin-top: 4px; }
+.kh-ff-bawah small { color: var(--dim); }
+.kh-tokoh { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 22px; }
+.kh-tokoh-top { display: flex; gap: 14px; align-items: center; }
+.kh-tokoh-top .bso-ava { font-size: 1.2rem; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; flex: none; background: color-mix(in srgb, var(--lime) 10%, transparent); border: 1px solid var(--line-2); }
+
+@media (max-width: 639px) {
+  .kh-ringan { grid-template-columns: 1fr; justify-items: center; text-align: left; }
+  .kh-ringan > div:last-child { justify-self: stretch; }
+  .kh-kal { gap: 3px; }
+  .kh-kal-head { font-size: .62rem; letter-spacing: 0; }
+  .kh-hari { min-height: 54px; padding: 5px 3px; border-radius: 9px; align-items: center; }
+  .kh-hari .tgl { font-size: .74rem; }
+  .kh-libur-lbl { display: none; }
+  .kh-ev { width: auto; padding: 4px; background: none; justify-content: center; }
+  .kh-ev .dot { margin: 0; width: 8px; height: 8px; }
+  .kh-ev .t { display: none; }
+  .kh-list-item { padding: 12px 14px; gap: 12px; }
+}
