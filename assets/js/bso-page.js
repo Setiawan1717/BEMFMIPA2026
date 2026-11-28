@@ -215,6 +215,13 @@
         ${tampil("pengumuman") ? "" : `<div>${kontakHtml(d)}</div>`}
       </div></section>`;
     if (tampil("pengumuman")) isiPengumuman(el.querySelector("[data-ann]"), { batas: 3 });
+    // FC.bsoExt.beranda(el, ctx) → bagian khusus di Beranda, setelah kartu menu
+    const xb = ext().beranda;
+    if (typeof xb === "function") {
+      const box = document.createElement("div");
+      el.children[1].after(box);
+      try { xb(box, ctx); } catch (e) { console.error(e); }
+    }
   }
 
   function kontakHtml(d) {

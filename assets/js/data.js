@@ -11,7 +11,7 @@
   /* ---------- konstanta yang dipakai bersama ---------- */
   FC.DEPARTEMEN = ["Matematika", "Fisika", "Kimia", "Biologi"];
   FC.KATEGORI = {
-    lomba: ["Karya Tulis Ilmiah", "Olimpiade Sains", "Data & Teknologi", "Inovasi & Bisnis", "Esai & Debat", "Lainnya"],
+    lomba: ["Karya Tulis Ilmiah", "Olimpiade Sains", "Data & Teknologi", "Inovasi & Bisnis", "Esai & Debat", "Olahraga", "Lainnya"],
     beasiswa: ["Pemerintah", "Swasta / Yayasan", "Internal Kampus", "Luar Negeri"],
     pelatihan: ["Soft Skill", "Keterampilan Teknis", "Sertifikasi", "Bootcamp", "Webinar"]
   };
