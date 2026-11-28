@@ -73,12 +73,27 @@ window.FC_BSO = {
       slug: "komipa",
       nama: "KOMIPA",
       departemen: "Seniora",
+      kepanjangan: "Komite Olahraga FMIPA",
       sembunyikan: ["galeri", "pengumuman", "daftar"],
-      tagline: "Ruang berkarya mahasiswa MIPA.",
-      deskripsi: "KOMIPA adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM yang mewadahi mahasiswa FMIPA untuk menyalurkan minat, mengasah kreativitas, dan menampilkan karya terbaiknya.",
+      tagline: "Di organisasi lain nambah capek, di KOMIPA ngilangin capek.",
+      deskripsi: "KOMIPA (Komite Olahraga FMIPA) adalah sub divisi Departemen Seniora BEM FMIPA UM yang menjadi komunitas olahraga mahasiswa FMIPA sepanjang tahun. Lewat latihan rutin bersama pelatih dari FIK, Liga MIPA antar-departemen, dan apresiasi atlet MIPA, kami menjadikan olahraga sebagai waktu refreshing di sela laprak, praktikum, dan tugas.",
+      // Halaman khusus KOMIPA (Rutin, Liga MIPA, Atlet MIPA) ada di komipa/app.js, datanya di komipa/liga.js
+      cta: { teks: "Lihat jadwal latihan", href: "#/rutin" },
+      fokus: [
+        { judul: "Latihan rutin", isi: "KOMIPA Rutin: olahraga bareng 2 minggu sekali, sekitar 2 jam, dengan cabor bergilir dan pelatih dari FIK. Libur saat UTS dan UAS." },
+        { judul: "Liga antar-departemen", isi: "Liga MIPA: futsal, voli, dan badminton antar-departemen setiap Sabtu, lengkap dengan klasemen, top skor, MVP, dan final." },
+        { judul: "Panggung untuk atlet", isi: "Apresiasi Atlet MIPA: prestasi mahasiswa FMIPA di klub dan lomba olahraga diliput lewat rubrik Atlet MIPA Bulan Ini." }
+      ],
+      program: [
+        { judul: "KOMIPA Rutin", isi: "Latihan olahraga bersama setiap 2 minggu sekali, sekitar 2 jam per sesi, dengan cabor bergilir: futsal, badminton, voli, basket, serta lari atau senam. Dilatih mahasiswa FIK lewat kerja sama dengan BEM FIK. Kalau pelatih berhalangan, latihan tetap jalan secara mandiri. Libur saat UTS dan UAS." },
+        { judul: "Komunitas per cabor", isi: "Komunitas seperti FMIPA Futsal dan FMIPA Badminton, masing-masing dengan koordinator, supaya latihan tetap jalan sepanjang tahun." },
+        { judul: "Liga MIPA", isi: "Liga antar-departemen dengan 3 cabor: futsal putra, voli putri, dan badminton ganda campuran. Format setengah kompetisi selama 3–5 pekan, pertandingan setiap Sabtu, lalu ditutup dengan final yang meriah." },
+        { judul: "Apresiasi Atlet MIPA", isi: "Pendataan dan publikasi prestasi mahasiswa FMIPA yang aktif di klub atau lomba olahraga eksternal, termasuk rubrik Atlet MIPA Bulan Ini di Instagram BEM dan FMIPA Connect." },
+        { judul: "Podcast olahraga bersama BEM", isi: "KOMIPA menyiapkan tema dan narasumber untuk episode olahraga di podcast BEM, misalnya obrolan dengan atlet MIPA dan sains di balik olahraga." },
+        { judul: "Kolaborasi dengan Seniora", isi: "Penampilan seni di pembukaan atau final Liga MIPA, dan acara penutupan bersama di akhir periode." }
+      ],
       pertanyaan: [
-        { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
-        { name: "portofolio", label: "Link portofolio (opsional)", type: "url" }
+        { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
     },
     {
@@ -109,11 +124,27 @@ window.FC_BSO = {
     },
     {
       slug: "aswa",
-      nama: "Aswa",
+      nama: "ASWA",
       departemen: "Seniora",
+      kepanjangan: "Arek Seni Warga MIPA",
+      tagline: "Les seni gratis, panggung buat tampil, dan karyamu dilihat banyak orang.",
+      deskripsi: "ASWA (Arek Seni Warga MIPA) adalah sub divisi Departemen Seniora BEM FMIPA UM untuk tari, teater, musik, dan seni rupa. ASWA menjadi ruang berkarya warga MIPA: belajar seni secara rutin, mengirim karya, lalu tampil dari panggung kecil sampai panggung besar BEM.",
+      // Halaman khusus ASWA (Studio, Kirim Karya, Panggung, Keuntungan) ada di aswa/app.js, datanya di aswa/karya.js
       sembunyikan: ["galeri", "pengumuman", "daftar"],
-      tagline: "Ekspresikan dirimu, banggakan FMIPA.",
-      deskripsi: "Aswa adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM yang menjadi tempat mahasiswa FMIPA mengekspresikan diri lewat seni, berkarya bersama, dan tampil membanggakan fakultas.",
+      cta: { teks: "Kirim karyamu", href: "#/kirim-karya" },
+      fokus: [
+        { judul: "Latihan bergilir", isi: "Studio ASWA: tiap minggu ada latihan dengan bidang yang bergantian, jadi tiap bidang cukup sebulan sekali." },
+        { judul: "Upload karya", isi: "Siapa pun warga MIPA boleh mengirim karyanya, dari lagu, puisi, dan tari sampai gambar, desain, atau video." },
+        { judul: "Open panggung", isi: "Karya dan hasil latihan ditampilkan di panggung kecil, seperti gladi yang serius dengan penonton sungguhan." },
+        { judul: "Segmen puncak", isi: "Semua bidang tampil bersama GSC-5 dalam satu segmen penuh di acara Character Building BEM." }
+      ],
+      program: [
+        { judul: "Studio ASWA", isi: "Latihan rutin bergilir per bidang (tari, teater, musik, seni rupa) dengan format santai 1–2 jam: olah tubuh dan vokal, akting, jamming, atau sketsa bersama. Peserta cukup ikut bidang yang diminati." },
+        { judul: "Upload Karya Warga MIPA", isi: "Pengganti lomba poster. Warga MIPA mengirim karya apa pun, lalu karya dikurasi. Yang terpilih tampil di open panggung atau dipajang, dan yang terbaik naik ke segmen puncak. Tujuannya memberi panggung, bukan mencari juara." },
+        { judul: "Open Panggung", isi: "Panggung kecil 2–3 kali per semester untuk penampil ASWA, GSC-5, dan karya hasil upload. Formatnya seperti gladi bersih: latihan serius dengan penonton sungguhan." },
+        { judul: "Segmen Puncak di Character Building", isi: "ASWA dan GSC-5 direncanakan memegang satu segmen penuh di acara Character Building BEM: tari, teater, musik, paduan suara, pameran karya, dan penghargaan." },
+        { judul: "Spotlight Karya Warga MIPA", isi: "Apresiasi dua kali sebulan di Instagram yang menampilkan orang dan karyanya, sekaligus mengajak warga MIPA mengirim karya." }
+      ],
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]
