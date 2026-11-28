@@ -107,9 +107,26 @@ window.FC_BSO = {
       slug: "fs2t",
       nama: "FS2T",
       departemen: "Riskel",
+      kepanjangan: "Forum Studi Sains & Teknologi FMIPA",
+      tagline: "Belajar, meneliti, menulis, lalu terbit.",
+      deskripsi: "FS2T (Forum Studi Sains & Teknologi FMIPA) adalah sub divisi Departemen Riskel BEM FMIPA UM yang menjadi pusat riset dan publikasi mahasiswa FMIPA. Kelas, pendampingan naskah, dan riset bersama dirangkai menjadi satu alur: belajar, didampingi, meneliti, sampai karyamu terbit. Punya ide riset atau tulisan? Datang ke FS2T.",
+      // Halaman khusus FS2T (Alur Riset, Kelas Publikasi, Klinik Naskah, Bank Ide Riset, Keuntungan) ada di fs2t/app.js, datanya di fs2t/riset.js
       sembunyikan: ["galeri", "pengumuman", "daftar"],
-      tagline: "Dari rasa ingin tahu menjadi riset.",
-      deskripsi: "FS2T adalah sub divisi di bawah Departemen Riskel BEM FMIPA UM yang menumbuhkan budaya riset di kalangan mahasiswa FMIPA, dari diskusi keilmuan hingga persiapan lomba karya tulis dan penelitian.",
+      cta: { teks: "Lihat alur riset", href: "#/alur" },
+      fokus: [
+        { judul: "Belajar", isi: "Kelas Publikasi sebulan sekali dan konten Riset 101 di Instagram: cara menulis, memilih jurnal, sampai submit." },
+        { judul: "Didampingi", isi: "Klinik Naskah membantu mengecek naskahmu dan mencarikan jurnal tujuan yang sesuai. Kami mendampingi, bukan menuliskan." },
+        { judul: "Meneliti", isi: "Riset Kolaboratif: tim kecil lintas prodi bersama dosen pembimbing, diarahkan menjadi proposal PKM atau artikel jurnal." },
+        { judul: "Terbit", isi: "Hasilnya dipresentasikan di FS2T Research Day dan diarahkan sampai terbit, supaya riset tidak berhenti di laporan." }
+      ],
+      program: [
+        { judul: "Kelas Publikasi", isi: "Kelas online sekitar 60 menit, sebulan sekali, tentang cara menulis dan menerbitkan artikel ilmiah. Topiknya bergilir, pematerinya dosen, pengelola jurnal, atau kakak tingkat yang sudah pernah publikasi." },
+        { judul: "Riset 101", isi: "Konten carousel Instagram dua kali sebulan berisi tips riset dan publikasi, diambil dari materi Kelas Publikasi bulan itu." },
+        { judul: "Klinik Naskah", isi: "Dibuka sebulan sekali dengan sistem daftar. Tim FS2T membantu mengecek format, struktur, dan sitasi, mencarikan jurnal tujuan, dan mendampingi proses submit sampai revisi." },
+        { judul: "Riset Kolaboratif", isi: "Satu riset per semester oleh tim kecil 3–5 orang lintas prodi dengan satu dosen pembimbing. Hasilnya diarahkan menjadi proposal PKM atau artikel jurnal. Topiknya bisa diambil dari Bank Ide Riset." },
+        { judul: "Kunjungan & Kerja Sama", isi: "Kunjungan kerja sekali per semester yang selalu membawa pulang satu hasil konkret: narasumber, rencana kolaborasi, atau kesepakatan kerja sama." },
+        { judul: "FS2T Research Day", isi: "Acara puncak setahun sekali: presentasi hasil Riset Kolaboratif, pameran poster ilmiah, dan pemateri tamu. Direncanakan menjadi tempat peluncuran Antologi Karya Ilmiah FMIPA." }
+      ],
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true },
         { name: "minat_riset", label: "Bidang riset yang kamu minati", type: "text" }
