@@ -48,8 +48,9 @@ window.FC_BSO = {
       kepanjangan: "Kreativitas Islam FMIPA",
       tagline: "Tempat sains dan iman bertemu.",
       deskripsi: "Kharisma (Kreativitas Islam FMIPA) adalah sub divisi Departemen Kesma BEM FMIPA UM yang membahas Islam lewat kacamata sains. Lewat kajian, konten, dan kegiatan sosial, kami mengajak mahasiswa MIPA mengenal ayat-ayat kauniyah dengan cara yang kreatif dan santai.",
-      // Halaman khusus Kharisma (Gabung, Ngaji Sains, Agenda, Fun Fact) ada di kharisma/app.js, datanya di kharisma/kajian.js
-      cta: { teks: "Gabung jadi anggota", href: "#/gabung" },
+      // Halaman khusus Kharisma (Ngaji Sains, Agenda, Fun Fact) ada di kharisma/app.js, datanya di kharisma/kajian.js
+      sembunyikan: ["galeri", "pengumuman", "daftar"],
+      cta: { teks: "Lihat agenda", href: "#/agenda" },
       fokus: [
         { judul: "Kajian sains dan iman", isi: "Ngaji Sains dan Ngaji Online: membahas ayat-ayat kauniyah bersama ustadz dan dosen MIPA, plus tajwid dan sejarah Islam." },
         { judul: "Konten kreatif", isi: "Fun Fact MIPA di Instagram: fakta seputar MIPA dari sudut pandang Islam dan kisah ilmuwan Muslim di tiap bidang." },
@@ -72,6 +73,7 @@ window.FC_BSO = {
       slug: "komipa",
       nama: "KOMIPA",
       departemen: "Seniora",
+      sembunyikan: ["galeri", "pengumuman", "daftar"],
       tagline: "Ruang berkarya mahasiswa MIPA.",
       deskripsi: "KOMIPA adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM yang mewadahi mahasiswa FMIPA untuk menyalurkan minat, mengasah kreativitas, dan menampilkan karya terbaiknya.",
       pertanyaan: [
@@ -83,6 +85,7 @@ window.FC_BSO = {
       slug: "gsc5",
       nama: "GSC-5",
       departemen: "Seniora",
+      sembunyikan: ["galeri", "pengumuman", "daftar"],
       tagline: "Berlatih tekun, berprestasi bersama.",
       deskripsi: "GSC-5 adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM. Kami mewadahi mahasiswa FMIPA yang ingin berlatih rutin, mengasah kemampuan, dan membawa nama FMIPA berprestasi di berbagai ajang.",
       pertanyaan: [
@@ -93,6 +96,7 @@ window.FC_BSO = {
       slug: "aswa",
       nama: "Aswa",
       departemen: "Seniora",
+      sembunyikan: ["galeri", "pengumuman", "daftar"],
       tagline: "Ekspresikan dirimu, banggakan FMIPA.",
       deskripsi: "Aswa adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM yang menjadi tempat mahasiswa FMIPA mengekspresikan diri lewat seni, berkarya bersama, dan tampil membanggakan fakultas.",
       pertanyaan: [
@@ -103,6 +107,7 @@ window.FC_BSO = {
       slug: "fs2t",
       nama: "FS2T",
       departemen: "Riskel",
+      sembunyikan: ["galeri", "pengumuman", "daftar"],
       tagline: "Dari rasa ingin tahu menjadi riset.",
       deskripsi: "FS2T adalah sub divisi di bawah Departemen Riskel BEM FMIPA UM yang menumbuhkan budaya riset di kalangan mahasiswa FMIPA, dari diskusi keilmuan hingga persiapan lomba karya tulis dan penelitian.",
       pertanyaan: [
