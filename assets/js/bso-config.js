@@ -100,9 +100,24 @@ window.FC_BSO = {
       slug: "gsc5",
       nama: "GSC-5",
       departemen: "Seniora",
+      kepanjangan: "Gema Suara Cipta 5",
+      tagline: "Nyanyi tanpa ribet.",
+      deskripsi: "GSC-5 (Gema Suara Cipta 5) adalah tim vokal dan paduan suara FMIPA UM di bawah Departemen Seniora BEM FMIPA. Kami tampil sepanjang tahun di acara-acara fakultas dan menjadi lengan vokal ASWA. Siapa pun boleh ikut tanpa audisi, cukup pilih acara yang jadwalnya cocok.",
+      // Halaman khusus GSC-5 (Panggung, Ikut Nyanyi, Bareng ASWA) ada di gsc5/app.js, datanya di gsc5/panggung.js
       sembunyikan: ["galeri", "pengumuman", "daftar"],
-      tagline: "Berlatih tekun, berprestasi bersama.",
-      deskripsi: "GSC-5 adalah sub divisi di bawah Departemen Seniora BEM FMIPA UM. Kami mewadahi mahasiswa FMIPA yang ingin berlatih rutin, mengasah kemampuan, dan membawa nama FMIPA berprestasi di berbagai ajang.",
+      cta: { teks: "Lihat jadwal tampil", href: "#/panggung" },
+      // kontak: { whatsapp: "08xxxxxxxxxx", narahubung: "Nama", instagram: "gsc5.fmipaum" },
+      //   → nomor WhatsApp dipakai tombol "Kirim ke WhatsApp" di halaman Ikut Nyanyi
+      fokus: [
+        { judul: "Tampil di acara fakultas", isi: "Mengisi suara di PKKMB, pelantikan, yudisium, dies natalis, dan acara BEM lain. Panggungnya sudah ada, kami tinggal tampil." },
+        { judul: "Latihan menjelang tampil", isi: "Latihan cukup 2–3 kali sebelum tiap penampilan, bukan rutin mingguan sepanjang tahun." },
+        { judul: "Lengan vokal ASWA", isi: "GSC-5 fokus di vokal dan paduan suara, ASWA di bidang seni lainnya. Jadwal disusun bersama dan panggung besar dipegang berdua." }
+      ],
+      program: [
+        { judul: "Pengisi suara acara fakultas", isi: "Tampil di acara resmi FMIPA: PKKMB, pelantikan, yudisium, dies natalis, dan acara BEM lain, supaya GSC-5 terdengar sepanjang tahun. Jadwal lengkapnya ada di halaman Panggung." },
+        { judul: "Latihan bareng UKM paduan suara UM", isi: "Direncanakan bekerja sama dengan UKM paduan suara tingkat universitas untuk pelatih dan metode latihan. Latihan difokuskan menjelang penampilan." },
+        { judul: "Lomba paduan suara antarjurusan", isi: "Lomba tidak lagi berdiri sendiri, tetapi menjadi bagian dari panggung bersama ASWA supaya penonton lebih ramai. Dijalankan setelah tim terbentuk dan kolaborasi dengan ASWA berjalan." }
+      ],
       pertanyaan: [
         { name: "motivasi", label: "Kenapa kamu ingin bergabung?", type: "textarea", wajib: true }
       ]

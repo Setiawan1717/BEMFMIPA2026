@@ -1,0 +1,73 @@
+/* GSC-5 — gaya khusus halaman Panggung, Ikut Nyanyi, Bareng ASWA (hanya dimuat di folder ini) */
+.gs-label { display: block; font-size: .74rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.gs-meta { display: flex; gap: 8px; align-items: flex-start; font-size: .88rem; color: var(--muted); }
+.gs-meta svg { width: 16px; height: 16px; margin-top: 2px; color: var(--lime); flex: none; }
+.gs-aksi { display: flex; gap: 8px; flex-wrap: wrap; }
+.gs-kecil { font-size: .84rem; margin-top: 10px; }
+.gs-ikon { width: 42px; height: 42px; border-radius: 12px; display: inline-grid; place-items: center; color: var(--lime); background: color-mix(in srgb, var(--lime) 10%, transparent); border: 1px solid var(--line-2); flex: none; }
+.gs-ikon svg { width: 20px; height: 20px; }
+
+/* Panggung */
+.gs-panggung { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.gs-panggung li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass); font-size: .88rem; }
+.gs-panggung svg { width: 16px; height: 16px; color: var(--lime); }
+.gs-tampil-list { display: grid; gap: 14px; }
+.gs-tampil { display: grid; grid-template-columns: 84px 1fr; gap: 20px; padding: 22px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); }
+.gs-tampil.lewat { opacity: .85; }
+.gs-tgl { display: grid; place-content: start center; text-align: center; padding-top: 4px; }
+.gs-tgl b { font-family: var(--serif); font-size: 2.4rem; line-height: 1; color: var(--cream); }
+.gs-tgl small { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin-top: 4px; }
+.gs-isi { display: grid; gap: 8px; min-width: 0; }
+.gs-isi .top { display: flex; gap: 8px; flex-wrap: wrap; }
+.gs-isi h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; line-height: 1.25; }
+.gs-catatan { color: var(--muted); font-size: .9rem; }
+.gs-latihan { margin-top: 6px; padding: 14px 16px; border-radius: 14px; border: 1px dashed var(--line-2); }
+.gs-latihan ol { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 6px; }
+.gs-latihan li { font-size: .88rem; }
+.gs-latihan li b { font-weight: 600; margin-right: 8px; }
+.gs-latihan li span { color: var(--muted); }
+.gs-isi .gs-aksi { margin-top: 6px; }
+
+/* Ikut Nyanyi */
+.gs-jenis { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.gs-jenis-kartu { display: grid; gap: 12px; align-content: start; }
+.gs-jenis-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.gs-jenis-top h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; }
+.gs-jenis-kartu > p { color: var(--muted); }
+.gs-cek { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.gs-cek li { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; }
+.gs-cek svg { width: 16px; height: 16px; color: var(--lime); margin-top: 3px; flex: none; }
+.gs-untung { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); }
+.gs-untung-item { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border-radius: var(--r); border: 1px solid var(--line); background: var(--glass); }
+.gs-untung-item h3 { font-size: 1rem; font-weight: 700; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.gs-untung-item p { color: var(--muted); font-size: .88rem; margin-top: 4px; }
+.gs-pilih { display: grid; gap: 28px; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+.gs-form { display: grid; gap: 16px; margin-top: 20px; }
+.gs-opsi { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; gap: 8px; }
+.gs-opsi legend { margin-bottom: 8px; }
+.gs-opsi-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--line); background: var(--glass); cursor: pointer; transition: border-color .2s; }
+.gs-opsi-item:hover { border-color: var(--line-2); }
+.gs-opsi-item:has(input:checked) { border-color: var(--lime); background: color-mix(in srgb, var(--lime) 8%, transparent); }
+.gs-opsi-item input { margin-top: 3px; accent-color: var(--green); width: 18px; height: 18px; flex: none; }
+.gs-opsi-item b { display: block; }
+.gs-opsi-item small { color: var(--muted); font-size: .82rem; }
+.gs-pesan { position: sticky; top: calc(var(--header-h) + 16px); padding: 20px; border-radius: var(--r); border: 1px solid var(--line-2); background: var(--bg-2); display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; min-width: 0; }
+.gs-pesan pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: inherit; font-size: .9rem; line-height: 1.55; padding: 14px; border-radius: 12px; background: var(--bg-deep); color: var(--text); min-height: 140px; }
+
+/* Bareng ASWA */
+.gs-duo { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; }
+.gs-duo-kartu { display: grid; gap: 8px; }
+.gs-duo-kartu h3 { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+.gs-duo-kartu p { color: var(--muted); }
+.gs-duo-x { font-family: var(--serif); font-size: 2.4rem; color: var(--lime); }
+
+@media (max-width: 760px) {
+  .gs-pilih { grid-template-columns: minmax(0, 1fr); }
+  .gs-pesan { position: static; }
+  .gs-tampil { grid-template-columns: 1fr; gap: 10px; padding: 18px; }
+  .gs-tgl { place-content: start; text-align: left; display: flex; align-items: baseline; gap: 8px; padding: 0; }
+  .gs-tgl b { font-size: 1.8rem; }
+  .gs-duo { grid-template-columns: 1fr; }
+  .gs-duo-x { text-align: center; line-height: 1; }
+}
+.gs-pesan .btn { white-space: normal; max-width: 100%; text-align: center; }
